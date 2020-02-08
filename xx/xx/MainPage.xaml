@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:xx"
+             BackgroundColor="#FF0C154F"
+             x:Class="xx.MainPage">
+  <ContentPage.Content>
+    <Grid>
+            <StackLayout  x:Name="Esimene" IsVisible="False" HorizontalOptions="CenterAndExpand">
+                <Button Text="1"  Clicked="Button_Clicked" Margin="10,50,322,0" BackgroundColor="Green"  FontSize="Default"  TextColor="White"  FontAttributes="Bold" />
+                <Grid Grid.Row="2" BackgroundColor="Gray">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Editor Grid.Row="0" x:Name="mScanDataEditor" TextColor="Red" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                </Grid>
+                <!--<Button Margin="10,50,200,0" Text="Download Image" Clicked="DownloadClicked" />-->
+            </StackLayout>
+           
+            <StackLayout  x:Name="Teine" IsVisible="true" HorizontalOptions="CenterAndExpand">
+                <Button Text="2"  Clicked="Button2_Clicked" Margin="10,50,322,0" BackgroundColor="Blue"  FontSize="Default"  TextColor="White"  FontAttributes="Bold" />
+                <Grid Grid.Row="2" BackgroundColor="Gray">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Editor Grid.Row="0" x:Name="mScanDataEditor2" TextColor="Red" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                </Grid>
+            </StackLayout>
+        </Grid>
+
+        
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<ConfigDoc flags="720" name="Data Collection Profiles" desc="Profiles used for scanner configuration via POS Scanner API">
+  <HHPReserved>
+    <Key name="EXMVersion">1.0.1</Key>
+    <Key name="ContentVersion">1.0.0</Key>
+  </HHPReserved>
+  <Section flags="000" name="Develok Profile" id="Develok">
+    <Key cmd="DEVICE" list="Internal,USB" name="Device Type">Internal</Key>
+    <Key cmd="TYPE" list="Incremental,Full" name="ProfileType">Full</Key>    
+    <Key cmd="APPLY" list="true,false" min="" name="ApplyProfileOnLoad">false</Key>
+    <Key cmd="DEC_DATAMATRIX_ENABLED" list="true,false" name="Data Matrix Enable Symbology" id="Enable" gr="flag">true</Key>
+    <Key cmd="DEC_CODE128_ENABLED" list="true,false" name="Code128 Enable Symbology" id="" min="0" max="80">true</Key>
+    <Key cmd="DEC_PDF417_ENABLED" list="true,false" name="PDF417 Enable Symbology" id="Enable" gr="flag">true</Key>
+    <Key cmd="DEC_IATA25_ENABLED" list="true,false" name="IATA25 Enable Symbology" id="Enable" gr="flag">true</Key>
+    <Key cmd="DEC_CODE39_ENABLED" list="true,false" name="Code 39 Enable Symbology" id="Enable" gr="flag">true</Key>
+    <Key cmd="DEC_CODE39_FULL_ASCII_ENABLED" list="true,false" name="Enable Code 39 Full ASCII" id="EnableFullAscii" gr="flag">false</Key>
+    <Key cmd="DEC_CODE39_START_STOP_TRANSMIT" list="true,false" name="Code 39 Include Start/Stop Characters" id="StartStopTransmit" gr="flag">false</Key>
+    <Key cmd="DEC_CODE39_MIN_LENGTH" name="Code 39 Minimum Character Length" id="MinLength" min="0" max="48">1</Key>
+    <Key cmd="DEC_CODE39_MAX_LENGTH" name="Code 39 Maximum Character Length" id="MaxLength" min="0" max="48">48</Key>
+    <Key cmd="DEC_CODE39_CHECK_DIGIT_MODE" list="noCheck,check,checkAndStrip" name="Code 39 Check Digit Mode" id="CheckDigitMode">noCheck</Key>
+    <Key cmd="DEC_GS1_128_ENABLED" list="true,false" name="GS1_128 Enable Symbology" id="Enable" gr="flag">true</Key>
+    <Key cmd="DEC_C128_ISBT_ENABLED" list="true,false" name="ISBT 128 Enable Symbology" id="Enable" gr="flag">true</Key>
+	  <Key cmd="DEC_EAN8_ENABLED" list="true,false" name="EAN8 Enable Symbology" id="Enable" gr="flag">true</Key>    
+  	<Key cmd="DEC_EAN8_CHECK_DIGIT_TRANSMIT" list="true,false" name="EAN8 Send Check Character" id="CheckTransmit" gr="flag">true</Key>    
+    <Key cmd="DEC_EAN13_ENABLED" list="true,false" name="EAN13 Enable Symbology" id="Enable" gr="flag">true</Key>    
+	  <Key cmd="DEC_EAN13_CHECK_DIGIT_TRANSMIT" list="true,false" name="EAN13 Send Check Character" id="CheckTransmit" gr="flag">true</Key>
+    <Key cmd="DEC_UPCA_ENABLE" list="true,false" name="UPC-A Enable Symbology" id="Enable" gr="flag">true</Key>    
+    <Key cmd="DEC_UPCA_CHECK_DIGIT_TRANSMIT" list="true,false" name="UPC-A Send Check Character" id="CheckTransmit" gr="flag">true</Key>
+    <Key cmd="DEC_UPCA_NUMBER_SYSTEM_TRANSMIT" list="true,false" name="UPC-A Send Num Sys (UPC-A/UPC-E)" id="NumSysTransmit" gr="flag">true</Key>
+    <Key cmd="DEC_COUPON_CODE_MODE" list="true,false" name="UPC-A (Coupon Code) Enable Symbology" id="Enable" gr="flag">false</Key>    
+	  <Key cmd="DEC_UPCE0_ENABLED" list="true,false" name="UPCE0 Enable Symbology" id="Enable" gr="flag">true</Key>
+	  <Key cmd="DEC_UPCE1_ENABLED" list="true,false" name="UPCE1 Enable Symbology" id="Enable" gr="flag">true</Key>
+    <Key cmd="DEC_UPCE_CHECK_DIGIT_TRANSMIT" list="true,false" name="UPCE0 Send Check Character" id="CheckTransmit" gr="flag">true</Key>
+    <Key cmd="DEC_UPCE_EXPAND" list="true,false" name="UPCE0 Enxpand" id="UPCE0 ExpandedUpcE" gr="flag">true</Key>
+    <Key cmd="DEC_UPCE_NUMBER_SYSTEM_TRANSMIT" list="true,false" name="UPCE0 Send Num Sys (UPC-A/UPC-E)" id="NumSysTransmit" gr="flag">true</Key>
+    <Key cmd="DEC_AZTEC_ENABLED" list="true,false" name="Aztec Code Enable Symbology" id="Enable" gr="flag">true</Key>
+    <Key cmd="DEC_QR_ENABLED" list="true,false" name="QR Code / Micro QREnable Symbology" id="Enable" gr="flag">true</Key>
+    <Key cmd="DEC_MAXICODE_ENABLED" list="true,false" name="MaxiCode Enable Symbology" id="Enable" gr="flag">true</Key>
+    <Key cmd="DEC_I25_ENABLED" list="true,false" name="Interleaved 2 of 5 Enable Symbology" id="Enable" min="0" max="80">true</Key>
+  </Section>
+  <Section flags="000" name="HONWedge" id="WedgeConfig">
+    <Key cmd="DEVICE" list="Internal,USB" name="Device Type">Internal</Key>
+    <Key cmd="TYPE" list="Incremental,Full" name="ProfileType">Incremental</Key>
+    <Key cmd="ENABLE_WEDGE" list="true,false" name="WedgeEnable">false</Key>
+  </Section>
+</ConfigDoc>
