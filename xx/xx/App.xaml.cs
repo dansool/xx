@@ -12,8 +12,7 @@ namespace xx
         public bool scannerInitComplete;
         public string currentCanvasName = "";
         public bool isDeviceHandheld;
-        //public Windows.Devices.PointOfService.ClaimedBarcodeScanner claimedScanner = null;
-        //public  Windows.Devices.PointOfService.BarcodeScanner scanner = null;
+        public int pEnv;
         public App()
         {
             InitializeComponent();

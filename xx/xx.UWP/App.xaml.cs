@@ -21,12 +21,16 @@ namespace xx.UWP
     /// </summary>
     sealed partial class App : Application
     {
+        public xx.App xxApp;
         public static BarcodeScanner scanner = null;
         public static ClaimedBarcodeScanner claimedScanner = null;
         public MainPage mp;
         public bool scannerInitComplete;
         public string currentCanvasName = "";
         public bool isDeviceHandheld;
+        public bool isHoneyWell;
+        public bool isZebra;
+        public string deviceSerial;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code

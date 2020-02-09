@@ -4,28 +4,65 @@
              xmlns:local="clr-namespace:xx"
              BackgroundColor="#FF0C154F"
              x:Class="xx.MainPage">
-  <ContentPage.Content>
+
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+                iOS="20, 40, 20, 20"
+                Android="10, 10, 10, 10"
+                />
+    </ContentPage.Padding>
+    <ContentPage.Content>
     <Grid>
-            <StackLayout  x:Name="Esimene" IsVisible="False" HorizontalOptions="CenterAndExpand">
-                <Button Text="1"  Clicked="Button_Clicked" Margin="10,50,322,0" BackgroundColor="Green"  FontSize="Default"  TextColor="White"  FontAttributes="Bold" />
-                <Grid Grid.Row="2" BackgroundColor="Gray">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
+        <StackLayout  x:Name="stkEsimene"  x:FieldModifier="public" IsVisible="true" HorizontalOptions="CenterAndExpand">
+            <StackLayout  x:FieldModifier="public" IsVisible="true" HorizontalOptions="CenterAndExpand" Margin="0,0,0,0">
+                <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition Height="15"/>
                     </Grid.RowDefinitions>
-                    <Editor Grid.Row="0" x:Name="mScanDataEditor" TextColor="Red" HorizontalOptions="Fill" VerticalOptions="Fill"/>
-                </Grid>
-                <!--<Button Margin="10,50,200,0" Text="Download Image" Clicked="DownloadClicked" />-->
+                <StackLayout Grid.Row="0" HorizontalOptions="Center">
+                    <Label x:Name ="lblVersion" x:FieldModifier="public" Text=""  HorizontalTextAlignment="Start"  Margin="0,0,0,0"  FontSize="Default"  TextColor="White"  />
+                </StackLayout>
+                <StackLayout Grid.Row="1" HorizontalOptions="Center">
+                    <Label x:Name="lblDeviceSerial" x:FieldModifier="public" Text="" HorizontalTextAlignment="Start"  Margin="0,-4,0,0"  FontSize="Default" TextColor="White"  />
+                </StackLayout>
+                    </Grid>
             </StackLayout>
-           
-            <StackLayout  x:Name="Teine" IsVisible="true" HorizontalOptions="CenterAndExpand">
+            <Button Text="1" x:FieldModifier="public" Clicked="Button_Clicked" Margin="10,30,322,0" BackgroundColor="Green"  FontSize="Default"  TextColor="White"  FontAttributes="Bold" />
+            <Grid Grid.Row="2" BackgroundColor="Gray">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Column="1">
+                    <Editor Grid.Row="0" x:Name="txtEdit1" x:FieldModifier="public" TextColor="Red" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                </StackLayout>
+                   
+            </Grid>
+            <!--<Button Margin="10,50,200,0" Text="Download Image" Clicked="DownloadClicked" />-->
+
+        </StackLayout>
+            <StackLayout  x:Name="stkTeine" x:FieldModifier="public" IsVisible="false" HorizontalOptions="CenterAndExpand">
                 <Button Text="2"  Clicked="Button2_Clicked" Margin="10,50,322,0" BackgroundColor="Blue"  FontSize="Default"  TextColor="White"  FontAttributes="Bold" />
                 <Grid Grid.Row="2" BackgroundColor="Gray">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Editor Grid.Row="0" x:Name="mScanDataEditor2" TextColor="Red" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                    <Editor Grid.Row="0" x:Name="txtEdit2" TextColor="Red" HorizontalOptions="Fill" VerticalOptions="Fill"/>
                 </Grid>
             </StackLayout>
+        <StackLayout  x:Name="stkUpdate" x:FieldModifier="public" IsVisible="false" HorizontalOptions="CenterAndExpand">
+
+        <StackLayout  x:FieldModifier="public" IsVisible="true" HorizontalOptions="CenterAndExpand" Margin="0,0,0,0">
+          <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="322"/>
+            </Grid.ColumnDefinitions>
+            <StackLayout Grid.Column="0" >
+              <Label x:Name ="lblUpdate" x:FieldModifier="public" Text="UUE VERSIOONI LAADIMINE"    Margin="0,0,0,0"  FontSize="Large"  TextColor="Yellow"  />
+            </StackLayout>
+          </Grid>
+        </StackLayout>
+      </StackLayout>
         </Grid>
 
         

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace xx.UWP
+namespace xx.UWP.Utils
 {
     public class WriteProfile
     {

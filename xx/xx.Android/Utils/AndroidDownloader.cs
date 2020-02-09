@@ -14,17 +14,13 @@ using xx.Droid;
 using System.IO;
 using System.Net;
 using System.ComponentModel;
-
-using Android;
-using Android.Content.PM;
-using Android.Support.V4.App;
-using Android.Support.V4.Content;
 using Android.Webkit;
 using Java.IO;
-using System.Threading.Tasks;
+using xx.Droid.Utils;
+using System.Diagnostics;
 
 [assembly: Dependency(typeof(AndroidDownloader))]
-namespace xx.Droid
+namespace xx.Droid.Utils
 {
     public class AndroidDownloader : IDownloader
     {
@@ -34,17 +30,29 @@ namespace xx.Droid
         string urlGet = "";
 
 
-        public async void DownloadFile(string url, string folder)
+        public void DownloadFile(string url)
         {
             pathToNewFolder = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, "Pictures", "Screenshots");
             try
             {
                 urlGet = url;
-                WebClient webClient = new WebClient();
-                webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
-                fileName = Path.GetFileName(url);
-                string pathToNewFile = Path.Combine(pathToNewFolder, Path.GetFileName(url));
-                webClient.DownloadFileAsync(new Uri(url), pathToNewFile);
+                using (WebClient webClient = new WebClient())
+                {
+                    webClient.OpenRead(url);
+                    double totalBytes = Convert.ToDouble(webClient.ResponseHeaders["Content-Length"]);
+
+                    webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
+                    webClient.DownloadProgressChanged += (o, e) =>
+                    {
+                        double bytesIn = e.BytesReceived;
+                        double percentage = ((bytesIn / totalBytes) * 100);
+                        MessagingCenter.Send<App, string>((App)Xamarin.Forms.Application.Current, "downloadUpdateProgress", Math.Truncate(percentage).ToString());
+                    };
+                   
+                    fileName = Path.GetFileName(url);
+                    string pathToNewFile = Path.Combine(pathToNewFolder, Path.GetFileName(url));
+                    webClient.DownloadFileAsync(new Uri(url), pathToNewFile);
+                }
             }
             catch (Exception ex)
             {
@@ -52,6 +60,7 @@ namespace xx.Droid
                     OnFileDownloaded.Invoke(this, new DownloadEventArgs(false));
             }
         }
+        
 
         private void Completed(object sender, AsyncCompletedEventArgs e)
         {
@@ -64,6 +73,7 @@ namespace xx.Droid
                 }
                 else
                 {
+                    MessagingCenter.Send<App, string>((App)Xamarin.Forms.Application.Current, "downloadComplete", "true");
                     StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
                     StrictMode.SetVmPolicy(builder.Build());
 
@@ -73,8 +83,6 @@ namespace xx.Droid
                     Intent intent = new Intent(Intent.ActionView);
                     intent.SetFlags(ActivityFlags.ClearTop | ActivityFlags.NewTask);
                     intent.SetDataAndType(Android.Net.Uri.FromFile(file), "application/vnd.android.package-archive");
-                    //Android.Net.Uri path = FileProvider.GetUriForFile(Forms.Context, Android.App.Application.Context.PackageName + ".provider", file);
-                    //intent.SetDataAndType(path, mimeType);
 
                     intent.AddFlags(ActivityFlags.GrantReadUriPermission);
                     Forms.Context.StartActivity(Intent.CreateChooser(intent, "Your title"));

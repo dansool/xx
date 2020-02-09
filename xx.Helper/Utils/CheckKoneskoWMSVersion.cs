@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 
-namespace xx.Helper
+namespace xx.Helper.Utils
 {
-    public class Class1
+    public class CheckKoneskoWMSVersion
     {
         public async Task<string> Get()
         {

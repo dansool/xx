@@ -97,11 +97,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IPlatformDetailsUWP.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WriteProfile.cs" />
+    <Compile Include="Scanner\ScannerInit.cs" />
+    <Compile Include="Utils\GetDeviceSerial.cs" />
+    <Compile Include="Utils\GetIP.cs" />
+    <Compile Include="Utils\WriteProfile.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -152,6 +156,9 @@
     <PackageReference Include="Honeywell.BarcodeReader">
       <Version>1.32.7.10</Version>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.4.0.991640" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +166,9 @@
     <None Include="xx.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="HonCommands">
+      <HintPath>Assets\HonCommands.dll</HintPath>
+    </Reference>
     <Reference Include="xx.Helper">
       <HintPath>..\..\xx.Helper\bin\Release\xx.Helper.dll</HintPath>
     </Reference>

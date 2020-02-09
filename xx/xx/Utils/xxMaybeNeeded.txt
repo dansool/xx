@@ -1,0 +1,14 @@
+﻿//private void DownloadClicked(object sender, EventArgs e)
+//{
+//    if (Device.RuntimePlatform == Device.UWP)
+//    {
+//        if (Device.Idiom == TargetIdiom.Desktop)
+//        {
+//            Debug.WriteLine("DESKTOP!");
+//        }
+//    }
+//    else if (Device.RuntimePlatform == Device.Android)
+//    {
+//        downloader.DownloadFile("http://www.develok.ee/KoneskoWMS/Install/test3.test8.apk", "XF_Downloads");
+//    }
+//}

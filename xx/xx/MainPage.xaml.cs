@@ -7,180 +7,97 @@ using System.Threading.Tasks;
 using System.Threading;
 using Xamarin.Forms;
 using Honeywell.AIDC.CrossPlatform;
+using xx.Utils;
+using xx.StackPanelOperations;
+using xx.Helper.ListOfDefinitions;
+using Newtonsoft.Json;
 
 namespace xx
 {
-    public interface IMyInterface
-    {
-        string GetPlatformName();
-    }
-
-    public interface IDownloader
-    {
-        void DownloadFile(string url, string folder);
-        event EventHandler<DownloadEventArgs> OnFileDownloaded;
-    }
-   
-    public interface IAppVersion
-    {
-        string GetVersion();
-        int GetBuild();
-    }
-
     public partial class MainPage : ContentPage
     {
-
-
+        #region Variables
         private App obj = App.Current as App;
-        private const string DEFAULT_READER_KEY = "default";
-        private Dictionary<string, BarcodeReader> mBarcodeReaders;
-        private bool mContinuousScan = false, mOpenReader = false;
-        private BarcodeReader mSelectedReader = null;
-        private SynchronizationContext mUIContext = SynchronizationContext.Current;
-        private int mTotalContinuousScanCount = 0;
-        private bool mSoftContinuousScanStarted = false;
-        private bool mSoftOneShotScanStarted = false;
-        public IList<BarcodeReaderInfo> readerList = null;
         public string scannedValue = null;
-        public string ProfileFileName = "HoneywellDecoderSettingsV2.exm";
-        IDownloader downloader = DependencyService.Get<IDownloader>();
-
-        public string publishedVersion = "";
         public string currentVersion = "";
+        #endregion
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            
+        #region Utils
+        public CheckNewVersion CheckNewVersion = new CheckNewVersion();
+        public CollapseAllStackPanels CollapseAllStackPanels = new CollapseAllStackPanels();
+        public ReadSettings ReadSettings = new ReadSettings();
+        public VersionCheck VersionCheck = new VersionCheck();
+        #endregion
 
-        }
+        #region List
+        public List<ListOfSettings> lstSettings = new List<ListOfSettings>();
+        #endregion
 
+        #region WCF
+        #endregion
+
+
+        #region MainPage operations
         public MainPage()
         {
             InitializeComponent();
-            
-            if (Device.RuntimePlatform == Device.UWP)
-            {
-                UWP();
-                MessagingCenter.Subscribe<App, string>((App)Application.Current, "Acknowledged", (sender, arg) =>
-                {
-                    Debug.WriteLine("GOT IT!");
-                    Debug.WriteLine("GOT IT! " + arg);
-                    scannedValue = arg.ToString();
-                    mScanDataEditor.Text = arg.ToString();
-                    mScanDataEditor2.Text = arg.ToString();
-                });
-            }
-            else if (Device.RuntimePlatform == Device.Android)
-            {
-                Android();
-                MessagingCenter.Subscribe<App, string>((App)Application.Current, "Acknowledged", (sender, arg) =>
-                {
-                    DisplayAlert("aaa", "Full Name : " + arg, "OK");
-                });
-            }
-
-
-        }
-
-        public async void DisplayMessage(string message)
-        {
-            await DisplayAlert("aaa", "Full Name : " + message, "OK");
-        }
-
-        public void ScanMessage(string message)
-        {
-            DisplayAlert("aaa", "Full Name : " + message, "OK");
+           
+            if (Device.RuntimePlatform == Device.UWP) { UWP(); }
+            if (Device.RuntimePlatform == Device.Android) { Android(); }
         }
        
-
-        private void OnFileDownloaded(object sender, DownloadEventArgs e)
+        public void UWP()
         {
-            if (!e.FileSaved)
-            {
-                DisplayAlert("UUENDAMINE", "INSTALLIFAILI EI LEITUD!", "OK");
-            }
-        }
+            MessagingCenter.Subscribe<App, string>((App)Application.Current, "exception", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { DisplayAlert("VIGA", arg, "OK"); }); });
+            MessagingCenter.Subscribe<App, string>((App)Application.Current, "scannerInitStatus", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { Debug.WriteLine("Scanner initialization is complete " + arg); }); });
+            MessagingCenter.Subscribe<App, string>((App)Application.Current, "downloadUpdateProgress", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { lblUpdate.Text = "UUE VERSIOONI LAADIMINE " + arg + "%"; }); });
+            MessagingCenter.Subscribe<App, string>((App)Application.Current, "deviceSerial", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { lblDeviceSerial.Text = arg; Debug.WriteLine(arg); txtEdit1.Text = arg; txtEdit2.Text = arg; }); });
 
-       
-
-        public async void UWP()
-        {
-
-            var s = new xx.Helper.Class1();
-            publishedVersion = await s.Get();
-            var res = DependencyService.Get<IMyInterface>();
-            currentVersion = res.GetPlatformName();
-            Debug.WriteLine("PublishedVersion : " + publishedVersion);
-            Debug.WriteLine("CurrentVersion : " + currentVersion);
-
-            
-            //var x = await ReloadScannerAsync(this);
-            //if (x.Item1)
-            //{
-            //    obj.claimedScanner.DataReceived -= ClaimedScanner_DataReceivedAsync;
-            //    obj.claimedScanner.DataReceived += ClaimedScanner_DataReceivedAsync;
-            //    //await DisplayAlert("Error", x.Item2, "OK");
-            //}
+            VersionCheck.Check(this);
+            ReadSettings.Read(this);
+            ScannedValueReceive();
         }
 
         public async void Android()
         {
-            var s = new xx.Helper.Class1();
-            publishedVersion = await s.Get();
-            string v = DependencyService.Get<IAppVersion>().GetVersion();
-            int b = DependencyService.Get<IAppVersion>().GetBuild();
-            currentVersion = b + "." + v;
-            Debug.WriteLine("PublishedVersion : " + publishedVersion);
-            Debug.WriteLine("CurrentVersion : " + currentVersion);
-            if (publishedVersion != currentVersion)
-            {
-                var action = await DisplayAlert("UUENDUS", "KAS INSTALLIDA UUS VERSIOON", "Jah", "Ei");
-                if (action)
-                {
-                    downloader.OnFileDownloaded += OnFileDownloaded;
-                    downloader.DownloadFile("http://www.develok.ee/KoneskoWMS/Install/test3.test8.apk", "XF_Downloads");
-                }
-            }
-            //OpenBarcodeReader();
+            MessagingCenter.Subscribe<App, string>((App)Application.Current, "exception", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { DisplayAlert("VIGA", arg, "OK"); }); });
+            MessagingCenter.Subscribe<App, string>((App)Application.Current, "scannerInitStatus", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { Debug.WriteLine("Scanner initialization is complete"); }); });
+            MessagingCenter.Subscribe<App, string>((App)Application.Current, "downloadUpdateProgress", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { lblUpdate.Text = "UUE VERSIOONI LAADIMINE " + arg + "%"; }); });
+            MessagingCenter.Subscribe<App, string>((App)Application.Current, "downloadComplete", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { CollapseAllStackPanels.Collapse(this); stkEsimene.IsVisible = true; }); });
+            MessagingCenter.Subscribe<App, string>((App)Application.Current, "deviceSerial", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { lblDeviceSerial.Text = arg; Debug.WriteLine(arg); txtEdit1.Text = arg; txtEdit2.Text = arg; }); });
+
+            VersionCheck.Check(this);
+            ScannedValueReceive();
+            ReadSettings.Read(this);
+        }
+        #endregion
+
+        #region ScannedValue operations
+        public void ScannedValueReceive()
+        {
+            MessagingCenter.Subscribe<App, string>((App)Application.Current, "scannedValue", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { ProcessScannedValue(arg); txtEdit1.Text = arg; txtEdit2.Text = arg; }); });
         }
 
-       
+        public void ProcessScannedValue(string scannedValue)
+        {
+            Debug.WriteLine("ProcessScannedValue " + scannedValue);
+        }
+        #endregion
 
         private void Button_Clicked(object sender, EventArgs e)
         {
             Debug.WriteLine("MESSAGE! " + " ENNE OLI " + obj.currentCanvasName);
             obj.currentCanvasName = "Teine";
-            Esimene.IsVisible = false;
-            Teine.IsVisible = true;
-        }
+            stkEsimene.IsVisible = false;
+            stkTeine.IsVisible = true;
+        }  
 
         private void Button2_Clicked(object sender, EventArgs e)
         {
             Debug.WriteLine("MESSAGE! " + " ENNE OLI " + obj.currentCanvasName);
             obj.currentCanvasName = "Esimene";
-            Esimene.IsVisible = true;
-            Teine.IsVisible = false;
+            stkEsimene.IsVisible = true;
+            stkTeine.IsVisible = false;
         }
     }
-
-
-    //private void DownloadClicked(object sender, EventArgs e)
-    //{
-    //    if (Device.RuntimePlatform == Device.UWP)
-    //    {
-    //        if (Device.Idiom == TargetIdiom.Desktop)
-    //        {
-    //            Debug.WriteLine("DESKTOP!");
-    //        }
-    //    }
-    //    else if (Device.RuntimePlatform == Device.Android)
-    //    {
-    //        downloader.DownloadFile("http://www.develok.ee/KoneskoWMS/Install/test3.test8.apk", "XF_Downloads");
-    //    }
-    //}
-
-
-
-   
 }

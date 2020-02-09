@@ -16,9 +16,25 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)DownloadEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IPlatformDetailsAndroid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IReadWriteSettingsAndroid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IReadWriteSettingsUWP.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StackPanelOperations\CollapseAllStackPanels.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\DownloadEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IAppVersion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IDownloader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IPlatformDetailsUWP.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\CheckNewVersion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\GetPublishedVersion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\ParseVersionToList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\ReadSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\VersionCheck.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\WriteSettings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Utils\xxMaybeNeeded.txt" />
   </ItemGroup>
 </Project>
