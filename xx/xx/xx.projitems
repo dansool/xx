@@ -37,4 +37,7 @@
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Utils\xxMaybeNeeded.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)ScannerOperations\" />
+  </ItemGroup>
 </Project>

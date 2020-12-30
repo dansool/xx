@@ -44,6 +44,7 @@ namespace xx.UWP.Scanner
             {
                 string scannedCode = await GetData(args.Report.ScanDataLabel, args.Report.ScanDataType);
                 string scannedSymbology = Windows.Devices.PointOfService.BarcodeSymbologies.GetName(args.Report.ScanDataType);
+                MessagingCenter.Send<xx.App, string>((xx.App)obj.xxApp, "scannedValue", scannedCode + "###" + scannedSymbology);
             }
             catch (Exception ex)
             {

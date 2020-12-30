@@ -40,7 +40,7 @@ namespace xx.Utils
                    
                     if (!string.IsNullOrEmpty(currentVersion))
                     {
-                       
+                        Debug.WriteLine(currentVersion + "  " + publishedVersion);
                         var lstPublishedVersion = ParseVersionToList.Get(publishedVersion);
                         var lstCurrentVersion = ParseVersionToList.Get(currentVersion);
                         if (currentVersion == publishedVersion || lstCurrentVersion.First().Minor > lstPublishedVersion.First().Minor)
@@ -49,8 +49,10 @@ namespace xx.Utils
                         }
                         else
                         {
+                            
                             if ((lstCurrentVersion.First().Minor < lstPublishedVersion.First().Minor))
                             {
+                                
                                 return new Tuple<bool, string, string, string, string>(false, "LEITUD UUS VERSIOON " + publishedVersion + "\r\n" + "KAS UUENDADA TARKVARA?", publishedVersion, currentVersion, lstPublishedVersion.First().Minor.ToString());
                             }
                         }

@@ -28,21 +28,27 @@
                 </StackLayout>
                     </Grid>
             </StackLayout>
-            <Button Text="1" x:FieldModifier="public" Clicked="Button_Clicked" Margin="10,30,322,0" BackgroundColor="Green"  FontSize="Default"  TextColor="White"  FontAttributes="Bold" />
-            <Grid Grid.Row="2" BackgroundColor="Gray">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <StackLayout Grid.Column="1">
-                    <Editor Grid.Row="0" x:Name="txtEdit1" x:FieldModifier="public" TextColor="Red" HorizontalOptions="Fill" VerticalOptions="Fill"/>
-                </StackLayout>
-                   
-            </Grid>
-            <!--<Button Margin="10,50,200,0" Text="Download Image" Clicked="DownloadClicked" />-->
+                <StackLayout  x:FieldModifier="public" IsVisible="true" HorizontalOptions="CenterAndExpand" Margin="0,0,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="220"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0" WidthRequest="80" HeightRequest="30" HorizontalOptions="Center">
+                            <Button Text="1" x:FieldModifier="public" Clicked="Button_Clicked" BackgroundColor="Green"  FontSize="Default"  TextColor="White"  FontAttributes="Bold" />
+                        </Grid>
+                        <Grid Grid.Column="1" WidthRequest="180" HeightRequest="30" HorizontalOptions="Center" BackgroundColor="Transparent">
+                            <Editor Grid.Row="0" x:Name="txtEdit1" x:FieldModifier="public" IsReadOnly="True" TextColor="Red" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                        </Grid>
+                    </Grid>
+                
+            </StackLayout>
+                
+                <!--<Button Margin="10,50,200,0" Text="Download Image" Clicked="DownloadClicked" />-->
 
         </StackLayout>
             <StackLayout  x:Name="stkTeine" x:FieldModifier="public" IsVisible="false" HorizontalOptions="CenterAndExpand">
-                <Button Text="2"  Clicked="Button2_Clicked" Margin="10,50,322,0" BackgroundColor="Blue"  FontSize="Default"  TextColor="White"  FontAttributes="Bold" />
+                <Button Text="2"  Clicked="Button2_Clicked" Margin="10,50,122,0" BackgroundColor="Blue"  FontSize="Default"  TextColor="White"  FontAttributes="Bold" />
                 <Grid Grid.Row="2" BackgroundColor="Gray">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>

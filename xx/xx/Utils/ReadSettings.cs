@@ -22,25 +22,29 @@ namespace xx.Utils
         {
             try
             {
-                var settingsRead = await DependencyService.Get<IReadWriteSettingsAndroid>().ReadSettingsAsync();
-                if (string.IsNullOrEmpty(settingsRead))
+                if (Device.RuntimePlatform == Device.Android)
                 {
-                    var action = await mp.DisplayAlert("SEADISTAMINE", "WMS SERVERI AADRESS ON SEADISTAMATA. KAS SOOVID SEADISTADA?", "JAH", "EI");
-                    if (action)
+                    var settingsRead = await DependencyService.Get<IReadWriteSettingsAndroid>().ReadSettingsAsync();
+                    if (string.IsNullOrEmpty(settingsRead))
                     {
-                        WriteSettings.Write(mp);
+                        var action = await mp.DisplayAlert("SEADISTAMINE", "WMS SERVERI AADRESS ON SEADISTAMATA. KAS SOOVID SEADISTADA?", "JAH", "EI");
+                        if (action)
+                        {
+                            WriteSettings.Write(mp);
+                        }
                     }
-                }
-                else
-                {
-                    Debug.WriteLine("output ReadSettings " + settingsRead);
-                    mp.lstSettings = JsonConvert.DeserializeObject<List<ListOfSettings>>(settingsRead);
+                    else
+                    {
+                        Debug.WriteLine("output ReadSettings " + settingsRead);
+                        mp.lstSettings = JsonConvert.DeserializeObject<List<ListOfSettings>>(settingsRead);
+                    }
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("ReadSettings " + ex.Message);
             }
+        
         }
     }
 }

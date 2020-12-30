@@ -12,7 +12,7 @@ namespace xx.Helper.Utils
         public async Task<string> Get()
         {
             System.Net.Http.HttpClient httpClient = new HttpClient();
-            var httpResponse = await httpClient.GetStringAsync("http://www.develok.ee/KoneskoWMS/Install/KoneskoWMSVersion.txt");
+            var httpResponse = await httpClient.GetStringAsync("http://www.develok.ee/xxWMS/Install/xxWMSVersion.txt");
             return httpResponse.ToString();
         }
        
