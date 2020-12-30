@@ -54,8 +54,9 @@ namespace xx
             MessagingCenter.Subscribe<App, string>((App)Application.Current, "deviceSerial", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { lblDeviceSerial.Text = arg; Debug.WriteLine(arg); txtEdit1.Text = arg; txtEdit2.Text = arg; }); });
 
             VersionCheck.Check(this);
-            ReadSettings.Read(this);
             ScannedValueReceive();
+            ReadSettings.Read(this);
+           
         }
 
         public async void Android()
