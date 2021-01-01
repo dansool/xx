@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xx.UWP", "xx\xx.UWP\xx.UWP.
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "xx", "xx\xx\xx.shproj", "{DF7399DB-BF43-4858-B393-41B9C0267E7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xx.Helper", "xx.Helper\xx.Helper.csproj", "{EA215E02-4F07-4624-BB8A-4BE434D595C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xx.Helper", "xx\xx.Helper\xx.Helper.csproj", "{EA215E02-4F07-4624-BB8A-4BE434D595C1}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

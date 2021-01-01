@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.PointOfService;
-
+using Windows.Phone.Devices.Notification;
 using System.Diagnostics;
 using Xamarin.Forms;
 
@@ -13,8 +13,9 @@ namespace xx.UWP.Scanner
     public class ScannerInit
     {
         private App obj = App.Current as App;
-        public string ProfileFileName = "HoneywellDecoderSettingsV2.exm";
         public bool scannerInitComplete;
+        public WriteProfile WriteProfile = new WriteProfile();
+
 
         public async Task<Tuple<bool, string>> ReloadScannerAsync()
         {
@@ -33,7 +34,7 @@ namespace xx.UWP.Scanner
             }
             catch (Exception ex)
             {
-                MessagingCenter.Send<xx.App, string>((xx.App)obj.xxApp, "exception", "ScrannerInit/ReloadScannerAsync: " + ex.Message);
+                //MessagingCenter.Send<xx.App, string>((xx.App)obj.xxApp, "exception", "ScrannerInit/ReloadScannerAsync: " + ex.Message);
                 return new Tuple<bool, string>(false, "ReloadScannerAsync " + ex.Message);
             }
         }
@@ -42,6 +43,8 @@ namespace xx.UWP.Scanner
         {
             try
             {
+                VibrationDevice testVibrationDevice = VibrationDevice.GetDefault();
+                testVibrationDevice.Vibrate(TimeSpan.FromTicks(500000));
                 string scannedCode = await GetData(args.Report.ScanDataLabel, args.Report.ScanDataType);
                 string scannedSymbology = Windows.Devices.PointOfService.BarcodeSymbologies.GetName(args.Report.ScanDataType);
                 MessagingCenter.Send<xx.App, string>((xx.App)obj.xxApp, "scannedValue", scannedCode + "###" + scannedSymbology);
@@ -52,10 +55,12 @@ namespace xx.UWP.Scanner
             }
         }
 
+
         public async Task<bool> ReleaseScannerAsync(bool exit)
         {
             try
             {
+                
                 if (App.claimedScanner != null)
                 {
                     App.claimedScanner.DataReceived -= ClaimedScanner_DataReceivedAsync;
@@ -68,7 +73,7 @@ namespace xx.UWP.Scanner
             }
             catch (Exception ex)
             {
-                MessagingCenter.Send<xx.App, string>((xx.App)obj.xxApp, "exception", "ScrannerInit/ReleaseScannerAsync: " + ex.Message);
+                //MessagingCenter.Send<xx.App, string>((xx.App)obj.xxApp, "exception", "ScrannerInit/ReleaseScannerAsync: " + ex.Message);
                 return false;
             }
             return true;
@@ -78,8 +83,7 @@ namespace xx.UWP.Scanner
         {
             try
             {
-                var wp = new xx.UWP.Utils.WriteProfile();
-                var x = await wp.Write(ProfileFileName);
+                var x = await WriteProfile.Write("HoneywellDecoderSettingsV2.exm");
 
 
                 if (App.scanner == null)
@@ -103,7 +107,6 @@ namespace xx.UWP.Scanner
                 }
                 if (App.scanner != null)
                 {
-
                     App.claimedScanner = await App.scanner.ClaimScannerAsync();
                 }
                 if (App.claimedScanner != null)
@@ -131,7 +134,7 @@ namespace xx.UWP.Scanner
             }
             catch (Exception ex)
             {
-                MessagingCenter.Send<xx.App, string>((xx.App)obj.xxApp, "exception", "ScrannerInit/InitializeScannerAsync: " + ex.Message);
+                //MessagingCenter.Send<xx.App, string>((xx.App)obj.xxApp, "exception", "ScrannerInit/InitializeScannerAsync: " + ex.Message);
                 return new Tuple<bool, string>(false, "InitializeScannerAsync " + ex.Message);
             }
         }
@@ -201,7 +204,7 @@ namespace xx.UWP.Scanner
             return "";
         }
 
-        public async void OnClaimedScannerReleaseDeviceRequested(object sender, Windows.Devices.PointOfService.ClaimedBarcodeScanner e)
+        public void OnClaimedScannerReleaseDeviceRequested(object sender, Windows.Devices.PointOfService.ClaimedBarcodeScanner e)
         {
             try
             {

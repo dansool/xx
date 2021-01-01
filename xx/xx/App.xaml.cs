@@ -7,16 +7,18 @@ namespace xx
 {
     public partial class App : Application
     {
-       
+        public static INavigation GlobalNavigation { get; private set; }
+
         public MainPage mp;
         public bool scannerInitComplete;
         public string currentCanvasName = "";
         public bool isDeviceHandheld;
         public int pEnv;
+        public string deviceSerial;
+        public string operatingSystem;
         public App()
         {
             InitializeComponent();
-
             MainPage = new MainPage();
         }
 

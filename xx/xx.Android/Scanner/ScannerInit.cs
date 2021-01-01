@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Threading;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace xx.Droid.Scanner
 {
@@ -107,6 +108,8 @@ namespace xx.Droid.Scanner
 
         private void UpdateBarcodeInfo(string data, string symbology, DateTime timestamp)
         {
+            var duration = TimeSpan.FromTicks(500000);
+            Vibration.Vibrate(duration);
             MessagingCenter.Send<App, string>((App)Xamarin.Forms.Application.Current, "scannedValue", data);
         }
 

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:xx.Converters"
+             x:Class="xx.Templates.ViewCell1">
+
+    <ViewCell.View>
+        <StackLayout VerticalOptions="Center" Margin="0,0,0,0"  >
+
+            <Grid BackgroundColor="{Binding isSelected, Mode=TwoWay, Converter={StaticResource ListViewSelectedColorConverter}}">
+                <Grid.Resources>
+                    <ResourceDictionary>
+                        <converters:ListViewSelectedColorConverter x:Key="ListViewSelectedColorConverter"/>
+                    </ResourceDictionary>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="310"/>
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Column="0" Margin="0,0,-8,0" HeightRequest="70"  VerticalOptions="Center"/>
+                <Label Text="{Binding wmsAddress}" FontAttributes="Bold" TextColor="Violet"/>
+
+            </Grid>
+        </StackLayout>
+    </ViewCell.View>
+</ViewCell>

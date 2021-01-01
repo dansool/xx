@@ -19,6 +19,7 @@ using Windows.System.Profile;
 using Windows.Networking.Connectivity;
 using xx.UWP.Interfaces;
 using xx.UWP.Scanner;
+using Windows.UI.Core;
 
 [assembly: Xamarin.Forms.Dependency(typeof(xx.UWP.Interfaces.PlatformDetailsUWP))]
 
@@ -30,6 +31,7 @@ namespace xx.UWP
         
         //private xx.App xxApp;
         private App obj = App.Current as App;
+        ScannerInit ScannerInit = new ScannerInit();
         #endregion
 
         #region Lists
@@ -43,14 +45,46 @@ namespace xx.UWP
         public MainPage()
         {
             this.InitializeComponent();
+            Windows.UI.Xaml.Application.Current.Resuming += OnAppResuming;
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
             obj.xxApp = new xx.App();
             LoadApplication(obj.xxApp);
             LaunchStart();
+            
+        }
+
+        private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            e.Handled = true;
+           
+            MessagingCenter.Send<xx.App, string>((xx.App)obj.xxApp, "backPressed", "");
+        }
+        private async void OnAppResuming(object sender, object e)
+        {
+            if (AnalyticsInfo.VersionInfo.DeviceFamily != "Windows.Desktop")
+            {
+                await StartScanner();
+            }
+        }
+
+        protected async override void OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        {
+            if (AnalyticsInfo.VersionInfo.DeviceFamily != "Windows.Desktop")
+            {
+                await StartScanner();
+            }
+            base.OnNavigatedTo(e);
+        }
+
+        protected async override void OnNavigatedFrom(Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        {
+            await ReleaseScanner();
+            base.OnNavigatedFrom(e);
         }
 
         public async void UpdateMessageDisplayUpdateOK()
         {
-           
+            
         }
 
         public void UpdateMessageDisplayUpdateNOK()
@@ -86,21 +120,25 @@ namespace xx.UWP
                 obj.deviceSerial = hostNames.First().DisplayName.Replace(".konesko.ee", "");
             }
             #endregion
-
-            #region scanner
-            StartScanner();
-            #endregion
         }
 
-        public async void StartScanner()
+        public async Task<bool> StartScanner()
         {
-            ScannerInit ScannerInit = new ScannerInit();
             var x = await ScannerInit.ReloadScannerAsync();
             if (x.Item1)
             {
                 App.claimedScanner.DataReceived -= ScannerInit.ClaimedScanner_DataReceivedAsync;
                 App.claimedScanner.DataReceived += ScannerInit.ClaimedScanner_DataReceivedAsync;
+                return true;
             }
+            return false;
+        }
+
+        public async Task<bool> ReleaseScanner()
+        {
+            ScannerInit ScannerInit = new ScannerInit();
+            var x = await ScannerInit.ReleaseScannerAsync(true);
+            return true;
         }
     }
 }

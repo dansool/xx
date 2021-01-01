@@ -70,5 +70,11 @@ namespace xx.Droid
                 MessagingCenter.Send<App, string>((App)Xamarin.Forms.Application.Current, "deviceSerial", "ERROR " + result.Item2);
             }
         }
+
+        public override void OnBackPressed()
+        {
+            MessagingCenter.Send<App, string>((App)Xamarin.Forms.Application.Current, "backPressed", "");
+            base.OnBackPressed();
+        }
     }
 }
