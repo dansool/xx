@@ -52,6 +52,8 @@ namespace xx.UWP
             LaunchStart();
             Windows.UI.Core.CoreWindow.GetForCurrentThread().KeyDown += HandleKeyDown;
             Window.Current.CoreWindow.CharacterReceived += CoreWindow_CharacterReceived;
+
+            
         }
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)
@@ -90,7 +92,7 @@ namespace xx.UWP
 
         private void CoreWindow_CharacterReceived(CoreWindow sender, CharacterReceivedEventArgs args)
         {
-            MessagingCenter.Send<xx.App, string>((xx.App)obj.xxApp, "KeyboardListener", Convert.ToChar(args.KeyCode).ToString());
+            MessagingCenter.Send<xx.App, string>((xx.App)obj.xxApp, "KeyboardListener", args.KeyCode.ToString());
         }
 
         public async void UpdateMessageDisplayUpdateOK()
@@ -117,7 +119,8 @@ namespace xx.UWP
                         obj.isDeviceHandheld = true;
                         obj.isHoneyWell = true;
                         obj.deviceSerial = result.Item3.Replace("75EX", "");
-                        MessagingCenter.Send<xx.App, string>((xx.App)obj.xxApp, "deviceSerial", obj.deviceSerial);                        
+                        MessagingCenter.Send<xx.App, string>((xx.App)obj.xxApp, "isDeviceHandheld", "true");
+                        MessagingCenter.Send<xx.App, string>((xx.App)obj.xxApp, "deviceSerial", obj.deviceSerial);
                     }
                 }
                 else
@@ -129,6 +132,8 @@ namespace xx.UWP
             {
                 var hostNames = NetworkInformation.GetHostNames();
                 obj.deviceSerial = hostNames.First().DisplayName.Replace(".konesko.ee", "");
+                MessagingCenter.Send<xx.App, string>((xx.App)obj.xxApp, "isDeviceHandheld", "false");
+                MessagingCenter.Send<xx.App, string>((xx.App)obj.xxApp, "deviceSerial", obj.deviceSerial);
             }
             #endregion
         }

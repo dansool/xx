@@ -22,6 +22,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IPlatformDetailsAndroid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IReadWriteSettingsAndroid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IReadWriteSettingsUWP.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scanner\CharacterReceived.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scanner\KeyBoardButtonPress.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StackPanelOperations\CollapseAllStackPanels.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Templates\ViewCell1.xaml.cs">
       <DependentUpon>ViewCell1.xaml</DependentUpon>
@@ -71,7 +73,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Keyboard\" />
     <Folder Include="$(MSBuildThisFileDirectory)Styles\" />
   </ItemGroup>
 </Project>

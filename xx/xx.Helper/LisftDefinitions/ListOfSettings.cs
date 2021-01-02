@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace xx.Helper.ListOfDefinitions
+namespace xx.Helper.ListDefinitions
 {
     public class ListOfSettings : INotifyPropertyChanged
     {

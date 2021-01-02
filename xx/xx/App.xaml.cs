@@ -16,6 +16,7 @@ namespace xx
         public int pEnv;
         public string deviceSerial;
         public string operatingSystem;
+        public string wcfAddress;
         public App()
         {
             InitializeComponent();

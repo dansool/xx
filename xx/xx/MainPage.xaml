@@ -54,14 +54,24 @@
                         <ColumnDefinition Width="220"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="1" WidthRequest="180" HeightRequest="40" HorizontalOptions="Center"  BackgroundColor="Yellow">
-                        <entry:CustomEntry HasUnderline="False" Grid.Row="0" x:Name="txtEdit3" x:FieldModifier="public" TextChanged="txtEdit3_TextChanged"  TextColor="Black" HorizontalOptions="Fill" VerticalOptions="Fill" Completed="OnEnterPressed"  />
+                        <entry:CustomEntry HasUnderline="False" Grid.Row="0" x:Name="txtEdit3"   Keyboard="Plain" x:FieldModifier="public" TextChanged="txtEdit3_TextChanged" Focused="TxtEdit3_Focused"  TextColor="Black" HorizontalOptions="Fill" VerticalOptions="Fill" Completed="OnEnterPressed"  />
+                    </Grid>
+                </Grid>
+            </StackLayout>
+            <StackLayout  x:FieldModifier="public" IsVisible="true" HorizontalOptions="CenterAndExpand" Margin="0,140,0,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="220"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1" WidthRequest="180" HeightRequest="40" HorizontalOptions="Center"  BackgroundColor="Yellow">
+                        <entry:CustomEntry HasUnderline="False" Grid.Row="0" x:Name="txtEdit4" Keyboard="Plain" x:FieldModifier="public" TextChanged="txtEdit4_TextChanged" Focused="TxtEdit4_Focused"  TextColor="Black" HorizontalOptions="Fill" VerticalOptions="Fill" Completed="OnEnterPressed"  />
                     </Grid>
 
                 </Grid>
             </StackLayout>
-           
-        
-            <StackLayout  x:FieldModifier="public" IsVisible="true" HorizontalOptions="CenterAndExpand" Margin="0,120,0,0">
+
+            <StackLayout  x:FieldModifier="public" IsVisible="true" HorizontalOptions="CenterAndExpand" Margin="0,170,0,0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>
@@ -92,6 +102,9 @@
             </Grid>
             </StackLayout>
         <StackLayout  x:Name="stkUpdate" x:FieldModifier="public" IsVisible="false" HorizontalOptions="CenterAndExpand">
+
+        
+            
         <StackLayout  x:FieldModifier="public" IsVisible="true" HorizontalOptions="CenterAndExpand" Margin="0,0,0,0">
           <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
@@ -102,7 +115,10 @@
             </StackLayout>
           </Grid>
         </StackLayout>
-      </StackLayout>
+    </StackLayout>
+            <StackLayout  x:Name="stkKeyboardCombo" x:FieldModifier="public" BackgroundColor="Black" IsVisible="false" HorizontalOptions="CenterAndExpand" Margin="0,300,0,0">
+                <Button ClassId="Enter" x:Name="X" Text="X" FontSize="Large" BackgroundColor="Gray" TextColor="White" Pressed="KeyboardButton_Clicked"/>
+            </StackLayout>
         </Grid>
 
         

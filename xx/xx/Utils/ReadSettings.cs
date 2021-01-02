@@ -9,7 +9,7 @@ using Xamarin.Forms;
 using Honeywell.AIDC.CrossPlatform;
 using xx.Utils;
 using xx.StackPanelOperations;
-using xx.Helper.ListOfDefinitions;
+using xx.Helper.ListDefinitions;
 using Newtonsoft.Json;
 
 

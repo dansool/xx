@@ -18,9 +18,13 @@ using System.Threading;
 using Xamarin.Forms;
 using xx.Droid.Scanner;
 using xx.Droid.Utils;
+using Android.Content;
+using Android.Views;
+using Android.Views.InputMethods;
 
 [assembly: Xamarin.Forms.Dependency(typeof(xx.Droid.Utils.PlatformDetailsAndroid))]
 [assembly: Xamarin.Forms.Dependency(typeof(xx.Droid.Utils.Version_Android))]
+
 //[assembly: Xamarin.Forms.Dependency(typeof(xx.Droid.Utils.ReadWriteSettings))]
 //[assembly: Xamarin.Forms.Dependency(typeof(xx.Droid.Utils.AndroidDownloader))]
 
@@ -28,6 +32,7 @@ using xx.Droid.Utils;
 namespace xx.Droid
 {
     [Activity(Label = "xx", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         #region Lists
@@ -57,6 +62,8 @@ namespace xx.Droid
 
         }
 
+      
+
         public async void LaunchStart()
         {
             var result = await GetDeviceSerial.Get();
@@ -77,4 +84,5 @@ namespace xx.Droid
             base.OnBackPressed();
         }
     }
+    
 }
