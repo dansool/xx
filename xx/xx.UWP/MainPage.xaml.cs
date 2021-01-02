@@ -50,7 +50,8 @@ namespace xx.UWP
             obj.xxApp = new xx.App();
             LoadApplication(obj.xxApp);
             LaunchStart();
-            
+            Windows.UI.Core.CoreWindow.GetForCurrentThread().KeyDown += HandleKeyDown;
+            Window.Current.CoreWindow.CharacterReceived += CoreWindow_CharacterReceived;
         }
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)
@@ -80,6 +81,16 @@ namespace xx.UWP
         {
             await ReleaseScanner();
             base.OnNavigatedFrom(e);
+        }
+
+        public void HandleKeyDown(Windows.UI.Core.CoreWindow window, Windows.UI.Core.KeyEventArgs e)
+        {
+           // MessagingCenter.Send<xx.App, string>((xx.App)obj.xxApp, "KeyboardListener", e.VirtualKey.ToString());
+        }
+
+        private void CoreWindow_CharacterReceived(CoreWindow sender, CharacterReceivedEventArgs args)
+        {
+            MessagingCenter.Send<xx.App, string>((xx.App)obj.xxApp, "KeyboardListener", Convert.ToChar(args.KeyCode).ToString());
         }
 
         public async void UpdateMessageDisplayUpdateOK()

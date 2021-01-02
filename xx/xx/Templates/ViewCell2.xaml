@@ -3,22 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:xx.Converters"
              x:Class="xx.Templates.ViewCell2">
-
     <ViewCell.View>
         <StackLayout VerticalOptions="Center" Margin="0,0,0,0"  >
-
             <Grid BackgroundColor="{Binding isSelected, Mode=TwoWay, Converter={StaticResource ListViewSelectedColorConverter}}">
                 <Grid.Resources>
                     <ResourceDictionary>
                         <converters:ListViewSelectedColorConverter x:Key="ListViewSelectedColorConverter"/>
+                        <converters:IsCheckedConverter x:Key="IsCheckedConverter"/>
                     </ResourceDictionary>
                 </Grid.Resources>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="310"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="260"/>
                 </Grid.ColumnDefinitions>
-                <StackLayout Grid.Column="0" Margin="0,0,-8,0" HeightRequest="70"  VerticalOptions="Center"/>
-                <Label Text="{Binding wmsAddress}" FontAttributes="Bold" TextColor="Violet"/>
-                
+                <StackLayout Grid.Column="0" Margin="0,0,-8,0" HeightRequest="70"  VerticalOptions="Center">
+                    <CheckBox IsChecked="{Binding isSelected}" ScaleX="1.5" ScaleY="1.5" />
+                </StackLayout>
+                <StackLayout Grid.Column="1" Margin="0,0,-8,0" HeightRequest="70"  VerticalOptions="Center">
+                    <Label Text="{Binding wmsAddress}" FontAttributes="Bold" TextColor="Violet"/>
+                    <Label Text="{Binding isSelected, Mode=TwoWay, Converter={StaticResource IsCheckedConverter}}" FontAttributes="Bold" TextColor="Green"/>
+                </StackLayout>
             </Grid>
         </StackLayout>
     </ViewCell.View>

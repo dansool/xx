@@ -65,6 +65,8 @@ namespace xx
             MessagingCenter.Subscribe<App, string>((App)Application.Current, "deviceSerial", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { lblDeviceSerial.Text = arg; Debug.WriteLine(arg); obj.deviceSerial = arg; }); });
             MessagingCenter.Subscribe<App, string>((App)Application.Current, "backPressed", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { txtEdit1.Text = "BackPressed"; }); });
 
+            MessagingCenter.Subscribe<App, string>(this, "KeyboardListener", (sender, args) => { Debug.WriteLine(args); });
+
             VersionCheck.Check(this);
             ScannedValueReceive();
             ReadSettings.Read(this);
@@ -186,9 +188,7 @@ namespace xx
 
         void LstvSettings_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            Debug.WriteLine("siin");
             var item = e.Item as ListOfSettings;
-            Debug.WriteLine(item.wmsAddress + " valitud");
             lstSet.ForEach(x => x.isSelected = false);
             item.isSelected = true;
         }

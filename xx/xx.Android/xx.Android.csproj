@@ -78,6 +78,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomEntryAndroid.cs" />
     <Compile Include="Utils\GetDeviceSerial.cs" />
     <Compile Include="Utils\PlatformDetailsAndroid.cs" />
     <Compile Include="Utils\Version_Android.cs" />

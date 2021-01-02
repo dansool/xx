@@ -9,25 +9,23 @@ using System.Globalization;
 
 namespace xx.Converters
 {
-    public class ListViewSelectedColorConverter : IValueConverter
+    public class IsCheckedConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value != null)
             {
-                Color rw = Color.Beige;
-                Color redw = Color.Red;
                 bool isSelected = (bool)value;
                 if (isSelected)
                 {
-                    return redw;
+                    return "ON";
                 }
                 else
                 {
-                    return rw;
+                    return "EI OLE";
                 }
             }
-            return value;
+            return "???";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

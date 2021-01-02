@@ -4,10 +4,10 @@
              xmlns:local="clr-namespace:xx"
              xmlns:localTemplates="clr-namespace:xx.Templates"
              xmlns:converters="clr-namespace:xx.Converters"
+             xmlns:entry="clr-namespace:CustomizedControl"
              BackgroundColor="#FF0C154F"
              x:Class="xx.MainPage">
     <ContentPage.Resources>
-        <converters:ListViewSelectedColorConverter x:Key="ListViewSelectedColorConverter"/>
     </ContentPage.Resources>
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness"
@@ -42,7 +42,7 @@
                             <Button Text="1" x:FieldModifier="public" Clicked="Button_Clicked" BackgroundColor="Green"  FontSize="Default"  TextColor="White"  FontAttributes="Bold" />
                         </Grid>
                         <Grid Grid.Column="1" WidthRequest="180" HeightRequest="40" HorizontalOptions="Center" BackgroundColor="White">
-                            <Editor Grid.Row="0" x:Name="txtEdit1" x:FieldModifier="public" IsReadOnly="True" TextColor="Red" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                            <Editor Grid.Row="0" x:Name="txtEdit1" x:FieldModifier="public" IsReadOnly="True" TextColor="Red" HorizontalOptions="Fill" VerticalOptions="Fill" />
                         </Grid>
                     </Grid>
             </StackLayout>
@@ -54,7 +54,7 @@
                         <ColumnDefinition Width="220"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="1" WidthRequest="180" HeightRequest="40" HorizontalOptions="Center"  BackgroundColor="Yellow">
-                        <Editor Grid.Row="0" x:Name="txtEdit3" x:FieldModifier="public" TextChanged="txtEdit3_TextChanged"  TextColor="Black" HorizontalOptions="Fill" VerticalOptions="Fill" Completed="OnEnterPressed" />
+                        <entry:CustomEntry HasUnderline="False" Grid.Row="0" x:Name="txtEdit3" x:FieldModifier="public" TextChanged="txtEdit3_TextChanged"  TextColor="Black" HorizontalOptions="Fill" VerticalOptions="Fill" Completed="OnEnterPressed"  />
                     </Grid>
 
                 </Grid>

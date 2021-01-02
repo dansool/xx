@@ -16,7 +16,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\IsCheckedConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ListViewSelectedColorConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CustomEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IPlatformDetailsAndroid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IReadWriteSettingsAndroid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IReadWriteSettingsUWP.cs" />
@@ -67,5 +69,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Keyboard\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Styles\" />
   </ItemGroup>
 </Project>
