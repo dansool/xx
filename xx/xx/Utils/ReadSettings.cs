@@ -18,7 +18,7 @@ namespace xx.Utils
     public class ReadSettings
     {
         WriteSettings WriteSettings = new WriteSettings();
-        public async void Read(MainPage mp)
+        public async Task<Tuple<bool, string>> Read(MainPage mp)
         {
             try
             {
@@ -37,12 +37,15 @@ namespace xx.Utils
                     {
                         Debug.WriteLine("output ReadSettings " + settingsRead);
                         mp.lstSettings = JsonConvert.DeserializeObject<List<ListOfSettings>>(settingsRead);
+                        return new Tuple<bool, string>(true, null);
                     }
                 }
+
+                return new Tuple<bool, string>(false, "UWP");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("ReadSettings " + ex.Message);
+                return new Tuple<bool, string>(false, "ReadSettings " + ex.Message);
             }
         
         }

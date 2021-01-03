@@ -17,6 +17,7 @@ namespace xx
         public string deviceSerial;
         public string operatingSystem;
         public string wcfAddress;
+        public string currentVersion;
         public App()
         {
             InitializeComponent();

@@ -11,13 +11,10 @@ using Windows.Devices.PointOfService;
 using Windows.UI.Xaml.Media;
 using Windows.UI;
 using Windows.UI.Xaml;
-using xx.UWP;
 using Xamarin.Forms;
-using Windows.UI.Xaml.Navigation;
 using xx.UWP.Utils;
 using Windows.System.Profile;
 using Windows.Networking.Connectivity;
-using xx.UWP.Interfaces;
 using xx.UWP.Scanner;
 using Windows.UI.Core;
 

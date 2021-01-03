@@ -17,7 +17,7 @@ namespace xx.Utils
     public class VersionCheck
     {
         MainPage mps;
-        public async void Check(MainPage mp)
+        public async Task<Tuple<bool, string, string, string>> Check(MainPage mp)
         {
             mps = mp;
             IDownloader downloader = DependencyService.Get<IDownloader>();
@@ -51,7 +51,13 @@ namespace xx.Utils
                         mp.stkEsimene.IsVisible = true;
                     }
                 }
+                return new Tuple<bool, string, string, string>(true, null, versionCheck.Item3, versionCheck.Item4);
             }
+            else
+            {
+                return new Tuple<bool, string, string, string>(true, null, versionCheck.Item3, versionCheck.Item4);
+            }
+            
         }
 
         private void OnFileDownloaded(object sender, DownloadEventArgs e)

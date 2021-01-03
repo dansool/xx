@@ -71,6 +71,7 @@ namespace xx.Droid
             {
                 string deviceSerial = result.Item3;
                 MessagingCenter.Send<App, string>((App)Xamarin.Forms.Application.Current, "deviceSerial", deviceSerial);
+                MessagingCenter.Send<App, string>((App)Xamarin.Forms.Application.Current, "isDeviceHandheld", "true");
             }
             else
             {

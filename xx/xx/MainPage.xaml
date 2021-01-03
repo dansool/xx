@@ -9,116 +9,199 @@
              x:Class="xx.MainPage">
     <ContentPage.Resources>
     </ContentPage.Resources>
-    <ContentPage.Padding>
-        <OnPlatform x:TypeArguments="Thickness"
-                iOS="20, 40, 20, 20"
-                Android="10, 10, 10, 10"
-                />
-    </ContentPage.Padding>
+    
     <ContentPage.Content>
-    <Grid>
-        <StackLayout  x:Name="stkEsimene"  x:FieldModifier="public" IsVisible="true" HorizontalOptions="CenterAndExpand">
-            <StackLayout  x:FieldModifier="public" IsVisible="true" HorizontalOptions="CenterAndExpand" Margin="0,0,0,0">
-                <Grid Grid.Row="2">
-                <Grid.RowDefinitions>
-                            <RowDefinition Height="15"/>
-                            <RowDefinition Height="15"/>
+        <Grid x:FieldModifier="public" x:Name="grdMain" HorizontalOptions="CenterAndExpand">
+            <StackLayout  x:Name="stkEsimene"  x:FieldModifier="public" HorizontalOptions="CenterAndExpand">
+                <Grid>
+                    <Grid.RowDefinitions>
+                                <RowDefinition Height="15"/>
+                                <RowDefinition Height="15"/>
                     </Grid.RowDefinitions>
-                <StackLayout Grid.Row="0" HorizontalOptions="Center">
-                    <Label x:Name ="lblVersion" x:FieldModifier="public" Text=""  HorizontalTextAlignment="Start"  Margin="0,0,0,0"  FontSize="Default"  TextColor="White"  />
-                </StackLayout>
-                <StackLayout Grid.Row="1" HorizontalOptions="Center">
-                    <Label x:Name="lblDeviceSerial" x:FieldModifier="public" Text="" HorizontalTextAlignment="Start"  Margin="0,-4,0,0"  FontSize="Default" TextColor="White"  />
-                </StackLayout>
-                    </Grid>
-            </StackLayout>
-                <StackLayout  x:FieldModifier="public" IsVisible="true" HorizontalOptions="CenterAndExpand" Margin="0,0,0,0">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="320"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <StackLayout Grid.Row="0" HorizontalOptions="Center">
+                        <Label x:Name ="lblVersion" x:FieldModifier="public" Text=""  HorizontalTextAlignment="Start"  Margin="0,0,0,0"  FontSize="Default"  TextColor="White"  />
+                    </StackLayout>
+                    <StackLayout Grid.Row="1" HorizontalOptions="Center">
+                        <Label x:Name="lblDeviceSerial" x:FieldModifier="public" Text="" HorizontalTextAlignment="Start"  Margin="0,-4,0,0"  FontSize="Default" TextColor="White"  />
+                    </StackLayout>
+                </Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="220"/>
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" WidthRequest="80" HeightRequest="40" HorizontalOptions="Center">
-                            <Button Text="1" x:FieldModifier="public" Clicked="Button_Clicked" BackgroundColor="Green"  FontSize="Default"  TextColor="White"  FontAttributes="Bold" />
+                        <Grid Grid.Column="0" Grid.Row="0" WidthRequest="80" HeightRequest="40" HorizontalOptions="Center">
+                            <Button Text="&#xf2b9;"  FontFamily="{StaticResource FaRegular}" x:FieldModifier="public" Clicked="Button_Clicked"  BackgroundColor="Green"  FontSize="Default"  TextColor="White"  FontAttributes="Bold" />
                         </Grid>
-                        <Grid Grid.Column="1" WidthRequest="180" HeightRequest="40" HorizontalOptions="Center" BackgroundColor="White">
-                            <Editor Grid.Row="0" x:Name="txtEdit1" x:FieldModifier="public" IsReadOnly="True" TextColor="Red" HorizontalOptions="Fill" VerticalOptions="Fill" />
+                        <Grid Grid.Column="1" Grid.Row="0" WidthRequest="180" HeightRequest="40" HorizontalOptions="Center" BackgroundColor="White">
+                        <entry:CustomEntry ClassId="entEdit1" x:Name="entEdit1" Grid.Row="0" x:FieldModifier="public" Style="{StaticResource ReadOnlyEntryStyle}" Focused="Entry_FocusedNoEntry" Unfocused="Entry_Unfocused" />
                         </Grid>
-                    </Grid>
-            </StackLayout>
-            </StackLayout>
-            <StackLayout  x:FieldModifier="public" IsVisible="true" HorizontalOptions="CenterAndExpand" Margin="0,90,0,0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="220"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="1" WidthRequest="180" HeightRequest="40" HorizontalOptions="Center"  BackgroundColor="Yellow">
-                        <entry:CustomEntry HasUnderline="False" Grid.Row="0" x:Name="txtEdit3"   Keyboard="Plain" x:FieldModifier="public" TextChanged="txtEdit3_TextChanged" Focused="TxtEdit3_Focused"  TextColor="Black" HorizontalOptions="Fill" VerticalOptions="Fill" Completed="OnEnterPressed"  />
-                    </Grid>
-                </Grid>
-            </StackLayout>
-            <StackLayout  x:FieldModifier="public" IsVisible="true" HorizontalOptions="CenterAndExpand" Margin="0,140,0,0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="220"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="1" WidthRequest="180" HeightRequest="40" HorizontalOptions="Center"  BackgroundColor="Yellow">
-                        <entry:CustomEntry HasUnderline="False" Grid.Row="0" x:Name="txtEdit4" Keyboard="Plain" x:FieldModifier="public" TextChanged="txtEdit4_TextChanged" Focused="TxtEdit4_Focused"  TextColor="Black" HorizontalOptions="Fill" VerticalOptions="Fill" Completed="OnEnterPressed"  />
-                    </Grid>
-
-                </Grid>
-            </StackLayout>
-
-            <StackLayout  x:FieldModifier="public" IsVisible="true" HorizontalOptions="CenterAndExpand" Margin="0,170,0,0">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="220"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0" WidthRequest="80" HeightRequest="40" HorizontalOptions="Center">
+                        <Grid Grid.Column="1" Grid.Row="1" WidthRequest="180" HeightRequest="40" HorizontalOptions="Center"  BackgroundColor="Yellow">
+                        <entry:CustomEntry ClassId="entEdit3"  x:Name="entEdit3" Grid.Row="0" x:FieldModifier="public" Style="{StaticResource ReadOnlyEntryStyle}" Focused="Entry_FocusedNumericWithSwitch" Unfocused="Entry_Unfocused" />
+                            </Grid>
+                        <Grid Grid.Column="1" Grid.Row="2" WidthRequest="180" HeightRequest="40" HorizontalOptions="Center"  BackgroundColor="Yellow">
+                        <entry:CustomEntry ClassId="entEdit4" x:Name="entEdit4"  Grid.Row="0" x:FieldModifier="public" Style="{StaticResource ReadOnlyEntryStyle}" Focused="Entry_FocusedNumericWithSwitchAndPlusMinus"  Unfocused="Entry_Unfocused" />
+                        </Grid>
+                    <Grid Grid.Column="0" Grid.Row="3" WidthRequest="80" HeightRequest="40" HorizontalOptions="Center">
                         <RadioButton Text="Production" />
                     </Grid>
-                    <Grid Grid.Column="1" WidthRequest="180" HeightRequest="40" HorizontalOptions="Center">
+                    <Grid Grid.Column="1" Grid.Row="3" WidthRequest="180" HeightRequest="40" HorizontalOptions="Center">
                         <RadioButton Text="Test" />
                     </Grid>
-                    
-                    
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="320"/>
+                    </Grid.ColumnDefinitions>
+                    <ListView x:FieldModifier="public"  x:Name="LstvSettings" IsVisible="True" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,20,0,0"  SelectionMode="Single" ItemTapped="LstvSettings_ItemTapped" BackgroundColor="White"  />
                 </Grid>
 
-            </StackLayout>
-         <StackLayout  x:FieldModifier="public" IsVisible="true" HorizontalOptions="CenterAndExpand" Margin="0,170,0,0" BackgroundColor="White" >
-                <ListView x:FieldModifier="public"  x:Name="LstvSettings" WidthRequest="322" HeightRequest="100" Margin="0,20,0,0"  SelectionMode="Single" ItemTapped="LstvSettings_ItemTapped"  />
-            </StackLayout>
-            
-        <StackLayout  x:Name="stkTeine" x:FieldModifier="public" IsVisible="false" HorizontalOptions="CenterAndExpand">
-            <Button Text="2"  Clicked="Button2_Clicked" Margin="10,50,122,0" BackgroundColor="Blue"  FontSize="Default"  TextColor="White"  FontAttributes="Bold" />
-            <Grid Grid.Row="2" BackgroundColor="Gray">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Editor Grid.Row="0" x:Name="txtEdit2" TextColor="Red" HorizontalOptions="Fill" VerticalOptions="Fill"/>
-            </Grid>
-            </StackLayout>
-        <StackLayout  x:Name="stkUpdate" x:FieldModifier="public" IsVisible="false" HorizontalOptions="CenterAndExpand">
 
-        
+
+
+            </StackLayout>
             
-        <StackLayout  x:FieldModifier="public" IsVisible="true" HorizontalOptions="CenterAndExpand" Margin="0,0,0,0">
-          <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="322"/>
-            </Grid.ColumnDefinitions>
-            <StackLayout Grid.Column="0" >
-              <Label x:Name ="lblUpdate" x:FieldModifier="public" Text="UUE VERSIOONI LAADIMINE"    Margin="0,0,0,0"  FontSize="Large"  TextColor="Yellow"  />
+            <StackLayout  x:Name="stkTeine" x:FieldModifier="public" IsVisible="false" HorizontalOptions="CenterAndExpand">
+                <Button Text="2"  Clicked="Button2_Clicked" Margin="10,50,122,0" BackgroundColor="Blue"  FontSize="Default"  TextColor="White"  FontAttributes="Bold" />
+                <Grid Grid.Row="2" BackgroundColor="Gray">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Editor Grid.Row="0" x:Name="txtEdit2" TextColor="Red" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                </Grid>
+                </StackLayout>
+
+            <StackLayout  x:Name="stkUpdate" x:FieldModifier="public" IsVisible="false" HorizontalOptions="CenterAndExpand">
+
+
+
+                <StackLayout  x:FieldModifier="public" IsVisible="true" HorizontalOptions="CenterAndExpand" Margin="0,0,0,0">
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="322"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Column="0" >
+                            <Label x:Name ="lblUpdate" x:FieldModifier="public" Text="UUE VERSIOONI LAADIMINE"    Margin="0,0,0,0"  FontSize="Large"  TextColor="Yellow"  />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
             </StackLayout>
-          </Grid>
-        </StackLayout>
-    </StackLayout>
-            <StackLayout  x:Name="stkKeyboardCombo" x:FieldModifier="public" BackgroundColor="Black" IsVisible="false" HorizontalOptions="CenterAndExpand" Margin="0,300,0,0">
-                <Button ClassId="Enter" x:Name="X" Text="X" FontSize="Large" BackgroundColor="Gray" TextColor="White" Pressed="KeyboardButton_Clicked"/>
-            </StackLayout>
+            
+            <Grid x:FieldModifier="public"  x:Name="grdKeyBoards" IsVisible="False">
+                <StackLayout  x:Name="stkKeyboardNumeric" x:FieldModifier="public" BackgroundColor="Black" IsVisible="false" HorizontalOptions="CenterAndExpand">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2"/>
+                            <RowDefinition Height="46"/>
+                            <RowDefinition Height="46"/>
+                            <RowDefinition Height="46"/>
+                        </Grid.RowDefinitions>
+                        <StackLayout Grid.Column="0" Grid.Row="1">
+                            <Button ClassId="1" x:Name="stkKeyboardNumeric1" Text="1" Style="{StaticResource KeyboardButtonStyle}"  Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="1" Grid.Row="1">
+                            <Button ClassId="2" x:Name="stkKeyboardNumeric2" Text="2" Style="{StaticResource KeyboardButtonStyle}"  Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="2" Grid.Row="1">
+                            <Button ClassId="3" x:Name="stkKeyboardNumeric3" Text="3" Style="{StaticResource KeyboardButtonStyle}" Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="0" Grid.Row="2">
+                            <Button ClassId="4" x:Name="stkKeyboardNumeric4" Text="4" Style="{StaticResource KeyboardButtonStyle}" Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="1" Grid.Row="2">
+                            <Button ClassId="5" x:Name="stkKeyboardNumeric5" Text="5" Style="{StaticResource KeyboardButtonStyle}" Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="2" Grid.Row="2">
+                            <Button ClassId="6" x:Name="stkKeyboardNumeric6" Text="6" Style="{StaticResource KeyboardButtonStyle}"  Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="0" Grid.Row="3">
+                            <Button ClassId="7" x:Name="stkKeyboardNumeric7" Text="7" Style="{StaticResource KeyboardButtonStyle}"  Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="1" Grid.Row="3">
+                            <Button ClassId="8" x:Name="stkKeyboardNumeric8" Text="8" Style="{StaticResource KeyboardButtonStyle}" Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="2" Grid.Row="3">
+                            <Button ClassId="9" x:Name="stkKeyboardNumeric9" Text="9" Style="{StaticResource KeyboardButtonStyle}" Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                    </Grid>
+                    <Grid>
+                        <!--<Grid.RowDefinitions>
+                            <RowDefinition Height="1"/>
+                        </Grid.RowDefinitions>-->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="47"/>
+                            <ColumnDefinition Width="47"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Column="0" Grid.Row="0">
+                            <Button ClassId="-" x:Name="stkKeyboardNumericminus" Text="-" Style="{StaticResource KeyboardButtonGrayStyle}" Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="1" Grid.Row="0">
+                            <Button ClassId="." x:Name="stkKeyboardNumericdot" Text="." Style="{StaticResource KeyboardButtonGrayStyle}" Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="2" Grid.Row="0">
+                            <Button ClassId="0" x:Name="stkKeyboardNumeric0" Text="0" Style="{StaticResource KeyboardButtonStyle}"  Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="3" Grid.Row="0">
+                            <Button ClassId="BackSpace" x:Name="stkKeyboardNumericBackSpace" Text="&#xf55a;" x:FieldModifier="public" FontFamily="{StaticResource FaSolid}" Style="{StaticResource KeyboardButtonGrayStyle}" Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="47"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Column="1" Grid.Row="0">
+                            <Button ClassId="Minus" x:Name="stkMinus" x:FieldModifier="public" Text="-"  Style="{StaticResource KeyboardButtonAddOnButtonStyle}" Pressed="KeyboardButton_Clicked" IsVisible="False"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="2" Grid.Row="0">
+                            <Button ClassId="SwitchToKeyboard" x:Name="stkKeyboardNumericSwitchToKeyboard" x:FieldModifier="public" Text="ABC"  Style="{StaticResource KeyboardButtonAddOnButtonStyle}" Pressed="KeyboardButton_Clicked" IsVisible="False"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="3" Grid.Row="0">
+                            <Button ClassId="Plus" x:Name="stkPlus" x:FieldModifier="public" Text="+"  Style="{StaticResource KeyboardButtonAddOnButtonStyle}" Pressed="KeyboardButton_Clicked" IsVisible="False"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="5" Grid.Row="0">
+                            <Button ClassId="Close" x:Name="stkKeyboardNumericClose" Text="&#xf410;" x:FieldModifier="public" FontFamily="{StaticResource FaSolid}" Style="{StaticResource KeyboardButtonCloseStyle}" Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+                <StackLayout  x:Name="stkKeyboardKeyboard" x:FieldModifier="public" BackgroundColor="Black" IsVisible="false" HorizontalOptions="CenterAndExpand">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="47"/>
+                            <ColumnDefinition Width="47"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Column="1">
+                            <Button ClassId="SwitchToNumpad" x:Name="stkKeyboardNumericSwitchToNumpad" x:FieldModifier="public" Text="123" Style="{StaticResource KeyboardButtonAddOnButtonStyle}" Pressed="KeyboardButton_Clicked" IsVisible="False"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="3">
+                            <Button ClassId="Close" x:Name="stkKeyboardKeyboardClose" Text="&#xf410;" x:FieldModifier="public" FontFamily="{StaticResource FaSolid}" Style="{StaticResource KeyboardButtonCloseStyle}" Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+            </Grid>
         </Grid>
 
         

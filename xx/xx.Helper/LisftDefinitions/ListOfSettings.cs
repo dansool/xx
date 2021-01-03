@@ -13,6 +13,7 @@ namespace xx.Helper.ListDefinitions
 
         public string wmsAddress { get; set; }
         public int pEnv { get; set; }
+        public string currentVersion { get; set; }
         public bool isSelected
         {
             get { return m_isVisible; }

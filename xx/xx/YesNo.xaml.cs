@@ -14,7 +14,7 @@ namespace xx
 	public partial class YesNo : ContentPage
 	{
         MainPage mp = new MainPage();
-        public bool YesNoResult = false;
+        //public bool YesNoResult = false;
 
         public  YesNo (MainPage mpFromMainPage)
 		{
@@ -24,13 +24,16 @@ namespace xx
 
         private async void btnNo_Pressed(object sender, EventArgs e)
         {            
-            YesNoResult = false;
+            //YesNoResult = false;
+            mp.YesNoResult = false;
+            
             await Application.Current.MainPage.Navigation.PopModalAsync();
         }
 
         private async void btnYes_Pressed(object sender, EventArgs e)
         {
-            YesNoResult = true;
+            //YesNoResult = true;
+            mp.YesNoResult = true;
             await Application.Current.MainPage.Navigation.PopModalAsync();
         }
     }

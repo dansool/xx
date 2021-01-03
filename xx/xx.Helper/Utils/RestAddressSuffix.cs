@@ -19,10 +19,6 @@ namespace xx.Helper.Utils
             {
                 URI = @"/ServiceProduction.svc/rest/";
             }
-            if (productionEnvironment == 2)
-            {
-                URI = @"/ServiceDev.svc/rest/";
-            }
             return URI;
         }
     }

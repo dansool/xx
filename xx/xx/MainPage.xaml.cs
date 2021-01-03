@@ -12,22 +12,18 @@ using xx.StackPanelOperations;
 using xx.Helper.ListDefinitions;
 using Newtonsoft.Json;
 using xx.Templates;
-using xx.Scanner;
 using xx.Helper.WCF;
 using xx.Helper.Utils;
+using xx.Keyboard;
 
 namespace xx
 {
+    
     public partial class MainPage : ContentPage
     {
-        public enum VirtualKeyboardType
-        {
-            Keyboard,
-            Numberic,
-            NumbericMinus,
-            Combo
-        }
-
+        
+        
+       
         protected override bool OnBackButtonPressed() => true;
 
         #region Variables
@@ -54,6 +50,8 @@ namespace xx
         public KeyBoardButtonPress KeyBoardButtonPress = new KeyBoardButtonPress();
         public Communicator Communicator = new Communicator();
         public DecompressData DecompressData = new DecompressData();
+        public VirtualKeyboardTypes VirtualKeyboardTypes = new VirtualKeyboardTypes();
+        public ShowKeyBoard ShowKeyBoard = new ShowKeyBoard();
         #endregion
 
         #region List
@@ -71,30 +69,61 @@ namespace xx
         public MainPage()
         {
             InitializeComponent();
-            Device.SetFlags(new string[] { "RadioButton_Experimental" }); // to be able to use radio buttons        
+            Device.SetFlags(new string[] { "RadioButton_Experimental" }); // to be able to use radio buttons  
+            
             if (Device.RuntimePlatform == Device.UWP) { obj.operatingSystem = "UWP"; UWP(); }
             if (Device.RuntimePlatform == Device.Android) { obj.operatingSystem = "Android"; Android(); }
-            //var lst = new List<ListOfSettings>();
-            //DisplayAlert("", lst.GetType().ToString(), "OK");
+            if (obj.operatingSystem == "UWP")
+            {
+                grdMain.ScaleX = 1.0;
+                grdMain.ScaleY = 1.0;
+            }
+            if (obj.operatingSystem == "Android")
+            {
+                grdMain.ScaleX = 1.1;
+                grdMain.ScaleY = 1.0;
+            }
             obj.wcfAddress = "https://wms.konesko.ee/KoneskoWMS";
-
+           
 
         }
 
-        public void UWP()
+        public async void UWP()
         {
+            grdMain.IsVisible = true;
+            stkEsimene.IsVisible = true;
+
             MessagingCenter.Subscribe<App, string>((App)Application.Current, "exception", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { DisplayAlert("VIGA", arg, "OK"); }); });
             MessagingCenter.Subscribe<App, string>((App)Application.Current, "scannerInitStatus", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { Debug.WriteLine("Scanner initialization is complete " + arg); }); });
             MessagingCenter.Subscribe<App, string>((App)Application.Current, "downloadUpdateProgress", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { lblUpdate.Text = "UUE VERSIOONI LAADIMINE " + arg + "%"; }); });
             MessagingCenter.Subscribe<App, string>((App)Application.Current, "deviceSerial", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { lblDeviceSerial.Text = arg; Debug.WriteLine(arg); obj.deviceSerial = arg;  }); });
             MessagingCenter.Subscribe<App, string>((App)Application.Current, "isDeviceHandheld", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { obj.isDeviceHandheld = Convert.ToBoolean(arg); }); });
-            MessagingCenter.Subscribe<App, string>((App)Application.Current, "backPressed", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { txtEdit1.Text = "BackPressed"; }); });
+            MessagingCenter.Subscribe<App, string>((App)Application.Current, "backPressed", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { entEdit1.Text = "BackPressed"; }); });
 
             MessagingCenter.Subscribe<App, string>(this, "KeyboardListener", (sender, args) => { CharacterReceived.Receive(args, this); });
 
-            VersionCheck.Check(this);
+            var version = await VersionCheck.Check(this);
             ScannedValueReceive();
-            ReadSettings.Read(this);
+            var resultSettings = await ReadSettings.Read(this);
+            if (resultSettings.Item1)
+            {
+             
+            }
+            if (version.Item1)
+            {
+                if (lstSettings.Any())
+                {
+                    lstSettings.First().currentVersion = version.Item3;
+                    lblVersion.Text = "Versioon: " + lstSettings.First().currentVersion;
+                }
+                else
+                {
+                    lstSettings = new List<ListOfSettings>();
+                    lstSettings.Add(new ListOfSettings { currentVersion = version.Item3 });
+                    lblVersion.Text = "Versioon: " + lstSettings.First().currentVersion;
+                }
+            }
+            
         }
 
         public async void Android()
@@ -103,12 +132,29 @@ namespace xx
             MessagingCenter.Subscribe<App, string>((App)Application.Current, "scannerInitStatus", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { Debug.WriteLine("Scanner initialization is complete"); }); });
             MessagingCenter.Subscribe<App, string>((App)Application.Current, "downloadUpdateProgress", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { lblUpdate.Text = "UUE VERSIOONI LAADIMINE " + arg + "%"; }); });
             MessagingCenter.Subscribe<App, string>((App)Application.Current, "downloadComplete", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { CollapseAllStackPanels.Collapse(this); stkEsimene.IsVisible = true; }); });
+            MessagingCenter.Subscribe<App, string>((App)Application.Current, "isDeviceHandheld", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { obj.isDeviceHandheld = Convert.ToBoolean(arg); }); });
             MessagingCenter.Subscribe<App, string>((App)Application.Current, "deviceSerial", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { lblDeviceSerial.Text = arg; Debug.WriteLine(arg); obj.deviceSerial = arg; }); });
-            MessagingCenter.Subscribe<App, string>((App)Application.Current, "backPressed", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { txtEdit1.Text = "BackPressed"; }); });
+            MessagingCenter.Subscribe<App, string>((App)Application.Current, "backPressed", (sender, arg) => { Device.BeginInvokeOnMainThread(() => { entEdit1.Text = "BackPressed"; }); });
 
-            VersionCheck.Check(this);
+            var version = await VersionCheck.Check(this);
+
             ScannedValueReceive();
-            ReadSettings.Read(this);
+            Debug.WriteLine("Siin?");
+            var resultSettings = await ReadSettings.Read(this);
+            if (resultSettings.Item1)
+            {
+                
+            }
+            if (version.Item1)
+            {
+                if (lstSettings.Any())
+                {
+                    lstSettings.First().currentVersion = version.Item3;
+                    lblVersion.Text = "Versioon: " + lstSettings.First().currentVersion;
+                }
+            }
+            grdMain.IsVisible = true;
+            stkEsimene.IsVisible = true;
         }
         #endregion
 
@@ -131,7 +177,7 @@ namespace xx
             {
                 currentScannedValue = scannedValue;
             }
-            txtEdit1.Text = currentScannedValue;
+            entEdit1.Text = currentScannedValue;
 
             Debug.WriteLine("scanned: " + currentScannedValue + " symbology: " + currentScannedSymbology);
             
@@ -147,35 +193,40 @@ namespace xx
         }
         #endregion
 
-        private void HandleModalPopping(object sender, ModalPoppingEventArgs e)
-        {
-            if (e.Modal == YesNoPage)
-            {
-                // now we can retrieve that phone number:
-                var result = YesNoPage.YesNoResult;
-                YesNoPage = null;
-                YesNoResult = result;
-                // remember to remove the event handler:
-                xx.App.Current.ModalPopping -= HandleModalPopping;
-            }
-        }
+       
 
+      
         public async Task<bool> YesNoDialog()
         {
             YesNoPage = new YesNo(this);
-            xx.App.Current.ModalPopping += HandleModalPopping;
-            await Navigation.PushModalAsync(YesNoPage);
+
+            var waitHandle = new EventWaitHandle(false, EventResetMode.AutoReset);
+            var modalPage = new YesNo(this);
+            modalPage.Disappearing += (sender2, e2) =>
+            {
+                waitHandle.Set();
+            };
+            await this.Navigation.PushModalAsync(modalPage);
+            await Task.Run(() => waitHandle.WaitOne());
             return YesNoResult;
 
         }
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            Debug.WriteLine("DeviceSerial = " + obj.deviceSerial);
-            Debug.WriteLine("MESSAGE! " + " ENNE OLI " + obj.currentCanvasName);
-            obj.currentCanvasName = "Teine";
-            stkEsimene.IsVisible = false;
-            stkTeine.IsVisible = true;
-
+            //Debug.WriteLine("DeviceSerial = " + obj.deviceSerial);
+            //Debug.WriteLine("MESSAGE! " + " ENNE OLI " + obj.currentCanvasName);
+            //obj.currentCanvasName = "Teine";
+            //stkEsimene.IsVisible = false;
+            //stkTeine.IsVisible = true;
+            var result = await YesNoDialog();
+            if (YesNoResult)
+            {
+                Debug.WriteLine("vastati jah");
+            }
+            else
+            {
+                Debug.WriteLine("vastati ei");
+            }
         }
 
 
@@ -191,35 +242,11 @@ namespace xx
             var result = await WCFSC_ValidateUser.Query(lstQuery, obj.wcfAddress, true);
             if (result.Item1)
             {
-                txtEdit3.Text = result.Item2.First().username;
+                entEdit3.Text = result.Item2.First().username;
             }
             else
             {
                 await DisplayAlert("WCF", result.Item3, "OK");
-            }
-        }
-
-
-        public void OnEnterPressed(object sender, EventArgs e)
-        {
-            Debug.WriteLine("txtEdit3 " + txtEdit3.Text);
-            txtEdit3.Text = txtEdit3.Text;
-        }
-
-        private void txtEdit3_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            string currentText = e.NewTextValue;
-            string lastText = "";
-            if (!String.IsNullOrEmpty(e.OldTextValue))
-            {
-                lastText = e.OldTextValue;
-            }
-            var currentNumb = currentText.Length - currentText.Replace(Environment.NewLine, string.Empty).Length;
-            var lastNumb = lastText.Length - lastText.Replace(Environment.NewLine, string.Empty).Length;
-            if (currentNumb > lastNumb)
-            {
-                txtEdit3.Text = lastText;
-                txtEdit3.Unfocus();
             }
         }
 
@@ -230,51 +257,183 @@ namespace xx
             item.isSelected = true;
         }
 
-        private void TxtEdit3_Focused(object sender, FocusEventArgs e)
-        {
-            txtEdit3.Focus();
-            txtEdit3.Unfocus();
-            focusedEditor = "TxtEdit3";
-            ShowKeyBoard(VirtualKeyboardType.Combo);
-        }
-
-        private void txtEdit4_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void TxtEdit4_Focused(object sender, FocusEventArgs e)
-        {
-            txtEdit4.Focus();
-            txtEdit4.Unfocus();
-            focusedEditor = "TxtEdit4";
-            ShowKeyBoard(VirtualKeyboardType.Combo);
-        }
-
-        public void ShowKeyBoard(VirtualKeyboardType type)
-        {
-            Debug.WriteLine("isDeviceHandheld " + obj.isDeviceHandheld);
-            if (obj.isDeviceHandheld)
-            {
-                stkKeyboardCombo.Margin = new Thickness(0, 400, 0, 0);
-                if (obj.operatingSystem == "UWP")
-                {
-                    stkKeyboardCombo.Margin = new Thickness(0, 300, 0, 0);
-                }
-
-                if (type == VirtualKeyboardType.Combo)
-                {
-
-                    stkKeyboardCombo.IsVisible = true;
-                }
-            }
-        }
-
         private void KeyboardButton_Clicked(object sender, EventArgs e)
         {
+            Button btn = (Button)sender;
+            Color btnColor = btn.BackgroundColor;
+            btn.BackgroundColor = Color.Gold;
+            Device.StartTimer(TimeSpan.FromSeconds(0.05), () => { btn.BackgroundColor = btnColor; return false; });
             var classID = (sender as Button).ClassId;
             KeyBoardButtonPress.KeyPress(classID, this);
         }
+
+        private void Entry_FocusedNumericWithSwitch(object sender, FocusEventArgs e)
+        {
+            Entry current = sender as Entry;
+            current.BackgroundColor = Color.Yellow;
+            
+            //Needed for Android
+            current.Focus();
+            current.Unfocus();
+            //===
+
+            if (!string.IsNullOrEmpty(focusedEditor))
+            {
+                if (focusedEditor != current.ClassId)
+                {
+                    Entry previous = this.FindByName<Entry>(focusedEditor);
+                    previous.BackgroundColor = Color.White;
+                }
+            }
+            focusedEditor = current.ClassId;
+
+            ShowKeyBoard.Show(VirtualKeyboardTypes.VirtualKeyboardType.NumericWithSwitch, this);
+        }
+
+        private void Entry_FocusedNumeric(object sender, FocusEventArgs e)
+        {
+            Entry current = sender as Entry;
+            current.BackgroundColor = Color.Yellow;
+
+            //Needed for Android
+            current.Focus();
+            current.Unfocus();
+            //===
+
+            if (!string.IsNullOrEmpty(focusedEditor))
+            {
+                if (focusedEditor != current.ClassId)
+                {
+                    Entry previous = this.FindByName<Entry>(focusedEditor);
+                    previous.BackgroundColor = Color.White;
+                }
+            }
+            focusedEditor = current.ClassId;
+
+            ShowKeyBoard.Show(VirtualKeyboardTypes.VirtualKeyboardType.Numeric, this);
+        }
+
+        private void Entry_FocusedNumericWithPlusMinus(object sender, FocusEventArgs e)
+        {
+            Entry current = sender as Entry;
+            current.BackgroundColor = Color.Yellow;
+
+            //Needed for Android
+            current.Focus();
+            current.Unfocus();
+            //===
+
+            if (!string.IsNullOrEmpty(focusedEditor))
+            {
+                if (focusedEditor != current.ClassId)
+                {
+                    Entry previous = this.FindByName<Entry>(focusedEditor);
+                    previous.BackgroundColor = Color.White;
+                }
+            }
+            focusedEditor = current.ClassId;
+
+            ShowKeyBoard.Show(VirtualKeyboardTypes.VirtualKeyboardType.NumericWithPlusMinus, this);
+        }
+
+        private void Entry_FocusedNumericWithSwitchAndPlusMinus(object sender, FocusEventArgs e)
+        {
+            Entry current = sender as Entry;
+            current.BackgroundColor = Color.Yellow;
+
+            //Needed for Android
+            current.Focus();
+            current.Unfocus();
+            //===
+
+            if (!string.IsNullOrEmpty(focusedEditor))
+            {
+                if (focusedEditor != current.ClassId)
+                {
+                    Entry previous = this.FindByName<Entry>(focusedEditor);
+                    previous.BackgroundColor = Color.White;
+                }
+            }
+            focusedEditor = current.ClassId;
+
+            ShowKeyBoard.Show(VirtualKeyboardTypes.VirtualKeyboardType.NumericWithSwitchAndPlusMinus, this);
+        }
+
+        private void Entry_FocusedKeyboard(object sender, FocusEventArgs e)
+        {
+            Entry current = sender as Entry;
+            current.BackgroundColor = Color.Yellow;
+
+            //Needed for Android
+            current.Focus();
+            current.Unfocus();
+            //===
+
+            if (!string.IsNullOrEmpty(focusedEditor))
+            {
+                if (focusedEditor != current.ClassId)
+                {
+                    Entry previous = this.FindByName<Entry>(focusedEditor);
+                    previous.BackgroundColor = Color.White;
+                }
+            }
+            focusedEditor = current.ClassId;
+
+            ShowKeyBoard.Show(VirtualKeyboardTypes.VirtualKeyboardType.Keyboard, this);
+        }
+
+        private void Entry_FocusedKeyboardWithSwitch(object sender, FocusEventArgs e)
+        {
+            Entry current = sender as Entry;
+            current.BackgroundColor = Color.Yellow;
+
+            //Needed for Android
+            current.Focus();
+            current.Unfocus();
+            //===
+
+            if (!string.IsNullOrEmpty(focusedEditor))
+            {
+                if (focusedEditor != current.ClassId)
+                {
+                    Entry previous = this.FindByName<Entry>(focusedEditor);
+                    previous.BackgroundColor = Color.White;
+                }
+            }
+            focusedEditor = current.ClassId;
+
+            ShowKeyBoard.Show(VirtualKeyboardTypes.VirtualKeyboardType.KeyboardWithSwitch, this);
+        }
+
+        private void Entry_FocusedNoEntry(object sender, FocusEventArgs e)
+        {
+            Entry current = sender as Entry;
+            current.BackgroundColor = Color.Yellow;
+
+            //Needed for Android
+            current.Focus();
+            current.Unfocus();
+            //===
+
+            if (!string.IsNullOrEmpty(focusedEditor))
+            {
+                if (focusedEditor != current.ClassId)
+                {
+                    Entry previous = this.FindByName<Entry>(focusedEditor);
+                    previous.BackgroundColor = Color.White;
+                }
+            }
+            focusedEditor = current.ClassId;
+            grdKeyBoards.IsVisible = false;
+        }
+
+        private void Entry_Unfocused(object sender, FocusEventArgs e)
+        {
+            Entry current = sender as Entry;
+            if (focusedEditor != current.ClassId)
+            {
+                current.BackgroundColor = Color.White;
+            }
+        }
     }
-  
 }

@@ -163,6 +163,9 @@
     <PackageReference Include="Xamarin.Forms" Version="4.7.0.1351" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\FontAwesome5Brands.otf" />
+    <Content Include="Assets\FontAwesome5Regular.otf" />
+    <Content Include="Assets\FontAwesome5Solid.otf" />
     <None Include="Assets\HoneywellDecoderSettingsV2.exm" />
     <None Include="xx.UWP_TemporaryKey.pfx" />
   </ItemGroup>
