@@ -435,5 +435,25 @@ namespace xx
                 current.BackgroundColor = Color.White;
             }
         }
+
+        private void rbtn1_Pressed(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void rbtn2_Pressed(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Rbtn1_CheckChanged(object sender, EventArgs e)
+        {
+            rbtn2.IsChecked = false;
+        }
+
+        private void Rbtn2_CheckChanged(object sender, EventArgs e)
+        {
+            rbtn1.IsChecked = false;
+        }
     }
 }

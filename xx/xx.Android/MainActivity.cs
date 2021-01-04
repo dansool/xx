@@ -25,13 +25,15 @@ using Android.Views.InputMethods;
 [assembly: Xamarin.Forms.Dependency(typeof(xx.Droid.Utils.PlatformDetailsAndroid))]
 [assembly: Xamarin.Forms.Dependency(typeof(xx.Droid.Utils.Version_Android))]
 
-//[assembly: Xamarin.Forms.Dependency(typeof(xx.Droid.Utils.ReadWriteSettings))]
-//[assembly: Xamarin.Forms.Dependency(typeof(xx.Droid.Utils.AndroidDownloader))]
-
 
 namespace xx.Droid
 {
-    [Activity(Label = "xx", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(
+        Label = "xx", 
+        Icon = "@mipmap/icon", 
+        Theme = "@style/MainTheme", 
+        MainLauncher = false, 
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
 
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
