@@ -76,9 +76,13 @@
     <PackageReference Include="Xamarin.Forms">
       <Version>4.8.0.1821</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Forms.InputKit">
+      <Version>3.1.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomEntryAndroid.cs" />
+    <Compile Include="SplashActivity.cs" />
     <Compile Include="Utils\GetDeviceSerial.cs" />
     <Compile Include="Utils\PlatformDetailsAndroid.cs" />
     <Compile Include="Utils\Version_Android.cs" />
@@ -123,10 +127,12 @@
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
     <Folder Include="Resources\drawable-xxxhdpi\" />
-    <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidEnvironment Include="environment.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\splashscreen.png" />
   </ItemGroup>
   <Import Project="..\xx\xx.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

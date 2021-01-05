@@ -9,6 +9,7 @@ namespace xx.Keyboard
     public class KeyBoardButtonPress
     {
         private CharacterReceived CharacterReceived = new CharacterReceived();
+        private ShiftSwitch ShiftSwitch = new ShiftSwitch();
         public void KeyPress(string classID, MainPage mp)
         {
             string passValue = "";
@@ -56,6 +57,55 @@ namespace xx.Keyboard
                         passValue = "";
                         break;
                     }
+                case "Shift":
+                    {
+                        ShiftSwitch.Switch(mp.btnKeyboardQ.Text == "Q" ? true : false, mp);
+                        passValue = "";
+                        break;
+                    }
+
+                case "123":
+                    {
+                        mp.stkKeyboardKeyboard.IsVisible = false;
+                        mp.stkKeyboardNumeric.IsVisible = false;
+                        mp.stkKeyboardKeyboardAdv.IsVisible = true;
+                        passValue = "";
+                        break;
+                    }
+                case "abc":
+                    {
+                        mp.stkKeyboardKeyboard.IsVisible = true;
+                        mp.stkKeyboardNumeric.IsVisible = false;
+                        mp.stkKeyboardKeyboardAdv.IsVisible = false;
+                        passValue = "";
+                        break;
+                    }
+                case "Quotation":
+                    {
+                        passValue = "34";
+                        break;
+                    }
+                case "Ampersand":
+                    {
+                        passValue = "38";
+                        break;
+                    }
+                case "curlyStart":
+                    {
+                        passValue = "123";
+                        break;
+                    }
+                    
+                case "AdvKeys":
+                    {
+                        bool regularVisible = mp.stkKeyboardAdvAt.IsVisible ? true : false;
+                        Debug.WriteLine("regularVisible " + regularVisible);
+                        mp.btnKeyboardAdvAdv.Text = regularVisible ? "\uf137" : "\uf138";
+                        ShiftSwitch.SwitchAdv(regularVisible, mp);
+                        passValue = "";
+                        break;
+                    }
+
                 default:
                     {
                         var ascii_values = classID.Select(x => (int)x);
