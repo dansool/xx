@@ -190,6 +190,46 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2"/>
+                            <RowDefinition Height="46"/>
+                            <RowDefinition Height="46"/>
+                            <RowDefinition Height="46"/>
+                        </Grid.RowDefinitions>
+                        <StackLayout Grid.Column="0" Grid.Row="1">
+                            <Button ClassId="1" x:Name="stkKeyboardNumeric1" Text="1" Style="{StaticResource KeyboardButtonStyle}"  Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="1" Grid.Row="1">
+                            <Button ClassId="2" x:Name="stkKeyboardNumeric2" Text="2" Style="{StaticResource KeyboardButtonStyle}"  Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="2" Grid.Row="1">
+                            <Button ClassId="3" x:Name="stkKeyboardNumeric3" Text="3" Style="{StaticResource KeyboardButtonStyle}" Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="0" Grid.Row="2">
+                            <Button ClassId="4" x:Name="stkKeyboardNumeric4" Text="4" Style="{StaticResource KeyboardButtonStyle}" Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="1" Grid.Row="2">
+                            <Button ClassId="5" x:Name="stkKeyboardNumeric5" Text="5" Style="{StaticResource KeyboardButtonStyle}" Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="2" Grid.Row="2">
+                            <Button ClassId="6" x:Name="stkKeyboardNumeric6" Text="6" Style="{StaticResource KeyboardButtonStyle}"  Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="0" Grid.Row="3">
+                            <Button ClassId="7" x:Name="stkKeyboardNumeric7" Text="7" Style="{StaticResource KeyboardButtonStyle}"  Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="1" Grid.Row="3">
+                            <Button ClassId="8" x:Name="stkKeyboardNumeric8" Text="8" Style="{StaticResource KeyboardButtonStyle}" Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="2" Grid.Row="3">
+                            <Button ClassId="9" x:Name="stkKeyboardNumeric9" Text="9" Style="{StaticResource KeyboardButtonStyle}" Pressed="KeyboardButton_Clicked"/>
+                        </StackLayout>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="47"/>
                             <ColumnDefinition Width="47"/>
                         </Grid.ColumnDefinitions>
